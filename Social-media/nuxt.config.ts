@@ -18,5 +18,12 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["nuxt-bootstrap-icons", "@vee-validate/nuxt"],
+  modules: [
+    "nuxt-bootstrap-icons",
+    "@vee-validate/nuxt",
+    "nuxt-server-utils",
+    "@sidebase/nuxt-auth",
+  ],
+
+  
 });

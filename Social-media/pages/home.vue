@@ -5,9 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <h3>Home Page</h3>
+  <Home />
 </template>
 
-<style lang="css" scoped>
-    
-</style>
+<style lang="css" scoped></style>

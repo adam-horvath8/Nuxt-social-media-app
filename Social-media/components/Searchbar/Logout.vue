@@ -4,7 +4,7 @@
   <div class="d-flex justify-content-end w-100">
     <a class="navbar-brand" href="#">
       <img
-        src="../../public/13757_malovani-podle-cisel-baby-yoda.png"
+        src="/13757_malovani-podle-cisel-baby-yoda.png"
         alt="logo"
         width="30"
         height="30"
