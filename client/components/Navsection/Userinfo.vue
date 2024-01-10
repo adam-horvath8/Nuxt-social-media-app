@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const authStore = useAuthStore();
+</script>
 
 <template>
   <div class="d-flex gap-4 rounded-3 bg-white p-3">
@@ -11,7 +13,7 @@
     />
     <div class="flex-column d-flex">
       <span>Full Name</span>
-      <span>@username</span>
+      <span>{{ `@${authStore.currentUser?.username}` }}</span>
     </div>
   </div>
 </template>

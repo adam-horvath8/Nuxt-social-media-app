@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-body-secondary ">
+  <div class="bg-body-secondary">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

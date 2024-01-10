@@ -2,20 +2,36 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
-const { sign } = require("jsonwebtoken");
+const { createTokens } = require("../JWT");
 
 const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
-  const { username, password } = req.body;
-  const hash = await bcrypt.hash(password, 10);
-  await prisma.user.create({
-    data: {
-      username: username,
-      password: hash,
-    },
-  });
-  res.json("USER REGISTERED");
+  try {
+    const { username, password } = req.body;
+
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "Username is already taken" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    await prisma.user.create({
+      data: {
+        username: username,
+        password: hash,
+      },
+    });
+    res.json("USER REGISTERED");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 router.post("/login", async (req, res) => {
@@ -27,20 +43,40 @@ router.post("/login", async (req, res) => {
     });
 
     if (!user) {
-      return res.json({ error: "User doesn't exist" });
+      return res.status(400).json({ error: "User doesn't exists" });
     }
 
-    const match = await bcrypt.compare(password, user.password);
+    const dbPassword = user.password;
+    const match = await bcrypt.compare(password, dbPassword);
 
     if (!match) {
-      return res.json({ error: "Wrong username and password combination" });
-    }
+      return res
+        .status(400)
+        .json({ error: "Wrong username and password combination" });
+    } else {
+      const accessToken = createTokens(user);
 
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    res.json(accessToken);
+      console.log(accessToken);
+
+      res.cookie("access-token", accessToken, {
+        maxAge: 86400000,
+        httpOnly: true,
+      });
+
+      res.json({ userInfo: { id: user.id, username: user.username } });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/logout", async (req, res) => {
+  try {
+    res.cookie("access-token", "", {
+      maxAge: 1,
+    });
+    res.json({ message: "Logged out" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

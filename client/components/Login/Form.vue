@@ -1,17 +1,19 @@
 import type { NuxtLink } from '#build/components';
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
+import type { errorMessageType, loginValuesType } from "../../types";
 
-const handleSubmit = async (values: any) => {
-  try {
-    const { data: response } = await useFetch("/api/login", {
-      method: "post",
-      body: { username: values.username, password: values.password },
-    });
-    console.log(response.value);
-  } catch (err) {
-    console.log(err);
-  }
+const authStore = useAuthStore();
+
+const router = useRouter();
+
+const errorMessage = ref<errorMessageType>("");
+
+const handleSubmit = async (values: Record<string, any>) => {
+  const loginValues = values as loginValuesType;
+  await authStore.login(loginValues.username, loginValues.password);
+  errorMessage.value = authStore.errorMessage;
+  router.push("/home");
 };
 </script>
 
@@ -40,6 +42,9 @@ const handleSubmit = async (values: any) => {
     <div>
       <button type="submit" class="btn btn-primary">Log In</button>
       <NuxtLink to="/register">Register</NuxtLink>
+    </div>
+    <div v-if="errorMessage" class="form-text text-danger">
+      {{ errorMessage }}
     </div>
   </Form>
 </template>

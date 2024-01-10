@@ -3,6 +3,11 @@ import type { NuxtLink } from '#build/components';
 import { Form, Field, ErrorMessage } from "vee-validate";
 import zod from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
+import type { registerValuesType, errorMessageType } from "~/types";
+
+const router = useRouter();
+
+const errorMessage = ref<errorMessageType>();
 
 const validationSchema = toTypedSchema(
   zod.object({
@@ -18,21 +23,33 @@ const validationSchema = toTypedSchema(
   })
 );
 
-const handleSubmit = async (values: any) => {
-  console.log(values);
+const handleSubmit = async (values: Record<string, any>) => {
+  const registerValues = values as registerValuesType;
 
   try {
-    if (values.password !== values.confirmPassword) {
+    if (registerValues.password !== registerValues.confirmPassword) {
+      errorMessage.value = "Passwords do not match";
       throw new Error("Passwords do not match");
     }
 
-    const { data: response } = await useFetch("http://localhost:3004/auth", {
-      method: "post",
-      body: {
-        username: values.username,
-        password: values.password,
-      },
-    });
+    const { data: response, error } = await useFetch(
+      "http://localhost:3004/auth",
+      {
+        method: "post",
+        body: {
+          username: values.username,
+          password: values.password,
+        },
+      }
+    );
+
+    if (error.value) {
+      errorMessage.value = error.value.data.error;
+    }
+
+    if (response.value) {
+      router.push("/");
+    }
 
     console.log(response.value);
   } catch (err) {
@@ -87,6 +104,9 @@ const handleSubmit = async (values: any) => {
     <div>
       <button type="submit" class="btn btn-primary">Register</button>
       <NuxtLink to="/">Log in</NuxtLink>
+      <div v-if="errorMessage" class="form-text text-danger">
+        {{ errorMessage }}
+      </div>
     </div>
   </Form>
 </template>
