@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.12.0",
+    "@popperjs/core": "^2.11.8",
     "@prisma/client": "^5.7.1",
     "@types/bootstrap": "^5.2.10",
     "@vee-validate/zod": "^4.12.4",

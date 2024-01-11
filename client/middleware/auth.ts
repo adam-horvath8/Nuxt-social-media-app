@@ -1,7 +1,8 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   const authStore = useAuthStore();
 
-  console.log("midle" + authStore.isAuth);
+  console.log("midle " + authStore.isAuth);
+  console.log("midle " + authStore.currentUser);
   // If the user is not authenticated and trying to access a protected route
   if (!authStore.isAuth && to.path !== "/") {
     // Redirect them to the login page

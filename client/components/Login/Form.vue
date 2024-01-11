@@ -4,6 +4,7 @@ import { Form, Field } from "vee-validate";
 import type { errorMessageType, loginValuesType } from "../../types";
 
 const authStore = useAuthStore();
+const toastStore = useToastStore();
 
 const router = useRouter();
 
@@ -13,6 +14,7 @@ const handleSubmit = async (values: Record<string, any>) => {
   const loginValues = values as loginValuesType;
   await authStore.login(loginValues.username, loginValues.password);
   errorMessage.value = authStore.errorMessage;
+  toastStore.displayToast("Succesfull Login");
   router.push("/home");
 };
 </script>

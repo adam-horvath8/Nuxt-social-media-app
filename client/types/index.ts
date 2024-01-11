@@ -12,6 +12,10 @@ export type registerValuesType = {
 };
 
 export type currentUserType = {
-    id: string;
-    username: string;
-  };
+  id: string;
+  username: string;
+};
+
+export type toastMessageType = {
+  message: string 
+};
