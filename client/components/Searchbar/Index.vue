@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="navbar bg-body-tertiary">
+  <div class="navbar bg-body-tertiary position-fixed w-100 z-2">
     <div class="container-fluid">
       <div class="row w-100 justify-content-between align-items-center">
         <div class="col-2">

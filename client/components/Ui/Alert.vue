@@ -9,14 +9,14 @@ const toastStore = useToastStore();
       :title="toastStore.toastMessage.message"
       variant="outline"
       color="primary"
-      class="c-alert col-sm-8 col-lg-4 bg-success-subtle text-center"
+      class="c-alert col-sm-8 col-lg-4 bg-success-subtle text-center z-3"
     />
   </div>
 </template>
 
 <style lang="css" scoped>
 .c-alert {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);

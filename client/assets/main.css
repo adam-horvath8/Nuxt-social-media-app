@@ -6,3 +6,7 @@
 html {
   background-color: rgb(233, 236, 239, 1);
 }
+
+.layout-padding {
+  padding-top: 5rem;
+}

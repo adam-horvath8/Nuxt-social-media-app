@@ -2,7 +2,9 @@
 
 <template>
   <Searchbar />
-  <slot />
+  <div class="layout-padding">
+    <slot />
+  </div>
 </template>
 
 <style lang="css" scoped></style>
