@@ -9,8 +9,8 @@ app.use(cors());
 app.use(cookieParser());
 
 //routers
-// const postRouter = require("./routes/Posts");
-// app.use("/posts", postRouter);
+const postRouter = require("./routes/Posts");
+app.use("/posts", postRouter);
 
 // const commentsRouter = require("./routes/Comments");
 // app.use("/comments", commentsRouter);

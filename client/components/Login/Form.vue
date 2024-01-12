@@ -12,10 +12,15 @@ const errorMessage = ref<errorMessageType>("");
 
 const handleSubmit = async (values: Record<string, any>) => {
   const loginValues = values as loginValuesType;
+
   await authStore.login(loginValues.username, loginValues.password);
-  errorMessage.value = authStore.errorMessage;
-  toastStore.displayToast("Succesfull Login");
-  router.push("/home");
+
+  if (authStore.isAuth) {
+    toastStore.displayToast("Succesfull Login");
+    router.push("/home");
+  } else {
+    errorMessage.value = authStore.errorMessage;
+  }
 };
 </script>
 

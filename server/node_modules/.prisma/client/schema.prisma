@@ -11,9 +11,63 @@ datasource db {
 }
 
 model User {
+  id              String         @id @default(uuid())
+  username        String         @unique
+  password        String
+  createdAt       DateTime       @default(now())
+  profile         Profile?
+  posts           Post[]
+    subscriptions   Subscription[] @relation("userToSubscriber")
+  subscribedTo    Subscription[] @relation("userToSubscribedTo")// Keep only this line for subscriptions
+  bookmarkedPosts Bookmark[]
+}
+
+
+model Post {
   id        String   @id @default(uuid())
-  username  String   @unique
-  password  String
+  text      String
+  imageSrc  String?    
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+   user      User         @relation(fields: [userId], references: [id])
+  userId  String
+  bookmarks Bookmark[]
+  replytoId String?
+  replyTo   Post?    @relation("replies", fields: [replytoId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Post[]   @relation("replies")
+  
+}
+
+model Profile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  name        String?
+  surname     String?
+  address     String?
+  description String?
+  profileImg  String?  // URL to the profile image
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id             String   @id @default(uuid())
+  subscriberId   String
+  subscribedToId String
+  createdAt      DateTime @default(now())
+
+  subscriber     User     @relation("userToSubscriber", fields: [subscriberId], references: [id])
+  subscribedTo   User     @relation("userToSubscribedTo", fields: [subscribedToId], references: [id])
+
+  @@unique([subscriberId, subscribedToId])
+}
+
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
 }

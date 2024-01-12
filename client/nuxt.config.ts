@@ -24,6 +24,10 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["nuxt-bootstrap-icons", "@vee-validate/nuxt", "@pinia/nuxt", '@nuxt/ui'],
-
+  modules: [
+    "nuxt-bootstrap-icons",
+    "@vee-validate/nuxt",
+    "@pinia/nuxt",
+    "@nuxt/ui",
+  ],
 });
