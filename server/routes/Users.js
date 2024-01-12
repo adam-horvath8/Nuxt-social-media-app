@@ -28,8 +28,8 @@ router.post("/", async (req, res) => {
       },
     });
     res.json("USER REGISTERED");
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -65,8 +65,8 @@ router.post("/login", async (req, res) => {
 
       res.json({ userInfo: { id: user.id, username: user.username } });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -77,8 +77,8 @@ router.get("/logout", async (req, res) => {
       maxAge: 1,
     });
     res.json({ message: "Logged out" });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });

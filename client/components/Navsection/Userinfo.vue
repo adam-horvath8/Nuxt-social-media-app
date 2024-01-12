@@ -5,7 +5,7 @@ const authStore = useAuthStore();
 <template>
   <div class="d-flex gap-4 rounded-3 bg-white p-3">
     <img
-      src="/13757_malovani-podle-cisel-baby-yoda.png"
+      src="/profile-img.jpg"
       alt=""
       width="50"
       height="50"

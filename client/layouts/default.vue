@@ -2,7 +2,6 @@
 
 <template>
   <Searchbar />
-
   <slot />
 </template>
 

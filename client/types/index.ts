@@ -17,5 +17,17 @@ export type currentUserType = {
 };
 
 export type toastMessageType = {
-  message: string 
+  message: string;
 };
+
+export type postType = {
+  id: string;
+  text: string;
+  imageSrc?: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  replytoId: string;
+};
+
+export type postsType = postType[];

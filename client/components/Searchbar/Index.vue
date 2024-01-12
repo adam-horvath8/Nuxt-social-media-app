@@ -7,7 +7,7 @@
         <div class="col-2">
           <NuxtLink to="/home" class="navbar-brand" href="#">
             <img
-              src="/13757_malovani-podle-cisel-baby-yoda.png"
+              src="/profile-img.jpg"
               alt="logo"
               width="30"
               height="30"
