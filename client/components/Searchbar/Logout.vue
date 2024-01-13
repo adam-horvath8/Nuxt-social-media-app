@@ -13,7 +13,10 @@ const handleLogout = async () => {
 
 <template>
   <div class="d-flex justify-content-end w-100">
-    <a class="navbar-brand" href="#">
+    <NuxtLink
+      :to="`/profile/${authStore.currentUser?.id}`"
+      class="navbar-brand"
+    >
       <img
         src="/profile-img.jpg"
         alt="logo"
@@ -21,7 +24,7 @@ const handleLogout = async () => {
         height="30"
         class="rounded-circle profile-photo"
       />
-    </a>
+    </NuxtLink>
     <button
       @click="handleLogout"
       class="btn btn-outline-secondary btn-sm rounded-pill"

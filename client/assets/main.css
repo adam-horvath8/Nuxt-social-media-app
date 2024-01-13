@@ -8,5 +8,23 @@ html {
 }
 
 .layout-padding {
-  padding-top: 5rem;
+  padding-top: 5.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(174, 149, 230);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(130, 75, 250);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }

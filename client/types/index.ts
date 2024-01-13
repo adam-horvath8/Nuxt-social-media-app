@@ -28,6 +28,25 @@ export type postType = {
   updatedAt: string;
   userId: string;
   replytoId: string;
+  user: userType;
 };
 
 export type postsType = postType[];
+
+export type userType = {
+  id: string;
+  username: string;
+  profile?: profileType;
+};
+
+export type usersType = userType[];
+
+export type profileType = {
+  id: string;
+  userId: string;
+  name?: string;
+  surname?: string;
+  address?: string;
+  description?: string;
+  profileImg?: string;
+};

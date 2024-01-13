@@ -19,7 +19,6 @@ router.post("/", async (req, res) => {
     const { text, userId } = req.body;
     let imageSrc;
 
-
     if (req.files) {
       const image = req.files.image; // 'image' is the name of the input field
 
@@ -63,8 +62,10 @@ router.get("/", async (req, res) => {
     const allPosts = await prisma.post.findMany({
       include: {
         user: {
-          include: {
-            profile: true, // This will include the profile data for each user
+          select: {
+            id: true,
+            username: true,
+            profile: true,
           },
         },
       },

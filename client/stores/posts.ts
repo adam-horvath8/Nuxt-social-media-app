@@ -9,8 +9,8 @@ interface Ipost {
 }
 
 export const usePostsStore = defineStore("posts", () => {
-  const posts = ref();
-  const errorMessage = ref();
+  const posts = ref<postsType>([]);
+  const errorMessage = ref<string | undefined>();
 
   const toastStore = useToastStore();
 
@@ -29,7 +29,6 @@ export const usePostsStore = defineStore("posts", () => {
       } else if (response.value) {
         posts.value = response.value.posts;
         toastStore.displayToast(response.value.message);
-        
       }
     } catch (error) {
       console.error(error);
@@ -44,8 +43,10 @@ export const usePostsStore = defineStore("posts", () => {
 
       if (error.value) {
         errorMessage.value = error.value?.data.error;
-      } else if (response.value) {
-        posts.value = response.value;
+      } else if (response.value && Array.isArray(response.value)) {
+        posts.value = response.value; 
+      } else {
+        posts.value = []; 
       }
     } catch (err) {
       console.error(err);

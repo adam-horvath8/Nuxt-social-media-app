@@ -83,4 +83,24 @@ router.get("/logout", async (req, res) => {
   }
 });
 
+router.get("/users", async (req, res) => {
+  try {
+    const allUsers = await prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+        profile: true,
+      },
+    });
+    if (allUsers) {
+      res.json(allUsers);
+    } else {
+      res.status(400).json({ error: "Problem finding data" });
+    }
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;

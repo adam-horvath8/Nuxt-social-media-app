@@ -3,10 +3,14 @@ definePageMeta({
   middleware: ["auth"],
   layout: "main",
 });
+
+const route = useRoute();
 </script>
 
 <template>
-  <h1>bookmarks</h1>
+  <div>
+    {{ route.params.id }}
+  </div>
 </template>
 
 <style lang="css" scoped></style>

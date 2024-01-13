@@ -10,13 +10,15 @@
         <slot />
       </div>
 
-      <div class="w-25 position-fixed bg-secondary right-10 top-20">
-        Rigth Section
+      <div class="w-25 position-fixed right-10 top-20">
+        <Connect />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="css" scoped>
-
+.sidebars{
+  min-width: 20%
+}
 </style>

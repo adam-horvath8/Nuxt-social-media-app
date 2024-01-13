@@ -12,7 +12,6 @@ const postsStore = usePostsStore();
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
     alert("No current user found");
-    // Handle this case as per your application's logic
     return;
   }
 
@@ -21,7 +20,6 @@ const handleSubmit = async (values: Record<string, any>) => {
   formData.append("text", values.post);
   formData.append("userId", authStore.currentUser?.id);
 
-  // Check if a file was selected and append it to the form data
   if (fileInput.value && fileInput.value.files[0]) {
     formData.append("image", fileInput.value.files[0]);
   }
@@ -43,9 +41,9 @@ const handleFileChange = () => {
 </script>
 
 <template>
-  <div>
-    <Form @submit="handleSubmit" class="">
-      <Field name="post" type="text" class="form-control" />
+  <div class="card p-2 py-3 rounded-0">
+    <Form @submit="handleSubmit" >
+      <Field name="post" type="text" class="form-control mb-2" placeholder="What is on your mid?"/>
       <div class="d-flex justify-content-between">
         <input
           name="image"
@@ -65,7 +63,7 @@ const handleFileChange = () => {
           <span v-if="fileName">{{ fileName }}</span>
         </div>
 
-        <button class="btn btn-primary flex-2">Post</button>
+        <button class="btn btn-primary flex-2 rounded-pill px-5">Post</button>
       </div>
     </Form>
   </div>
