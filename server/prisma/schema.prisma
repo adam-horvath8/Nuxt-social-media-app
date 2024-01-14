@@ -18,7 +18,7 @@ model User {
   profile         Profile?
   posts           Post[]
   subscriptions   Subscription[] @relation("userToSubscriber")
-  subscribedTo    Subscription[] @relation("userToSubscribedTo") 
+  subscribedTo    Subscription[] @relation("userToSubscribedTo")
   bookmarkedPosts Bookmark[]
 }
 
@@ -44,6 +44,8 @@ model Profile {
   address     String?
   description String?
   profileImg  String? // URL to the profile image
+  email       String? @unique
+  telNumber   String?
   user        User    @relation(fields: [userId], references: [id])
 }
 

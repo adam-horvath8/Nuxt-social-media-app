@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 
   css: [
     "bootstrap/dist/css/bootstrap.css",
+    "bootstrap/dist/css/bootstrap.min.css",
     "assets/main.css",
     "assets/mainmin.css",
   ],
@@ -29,5 +30,6 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@pinia/nuxt",
     "@nuxt/ui",
+    "@bootstrap-vue-next/nuxt",
   ],
 });

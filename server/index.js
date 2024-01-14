@@ -12,8 +12,8 @@ app.use(cookieParser());
 const postRouter = require("./routes/Posts");
 app.use("/posts", postRouter);
 
-// const commentsRouter = require("./routes/Comments");
-// app.use("/comments", commentsRouter);
+const profilesRouter = require("./routes/Profiles");
+app.use("/profile", profilesRouter);
 
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);

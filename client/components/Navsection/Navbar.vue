@@ -9,7 +9,10 @@ const authStore = useAuthStore();
       role="group"
       aria-label="Vertical button group"
     >
-      <NuxtLink to="/home" type="button" class="btn btn-light btn-lg text-start ps-4"
+      <NuxtLink
+        to="/home"
+        type="button"
+        class="btn btn-light btn-lg text-start ps-4"
         ><i class="bi bi-house-door-fill me-3"></i>Home</NuxtLink
       >
       <NuxtLink
@@ -40,4 +43,9 @@ const authStore = useAuthStore();
   </nav>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.router-link-exact-active {
+  background-color: rgb(217, 217, 217);
+  border-left: 0.4rem solid rgb(130, 75, 250);
+}
+</style>

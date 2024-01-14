@@ -6,7 +6,6 @@ const cloudinary = require("../cloud");
 
 const prisma = new PrismaClient();
 
-// Make sure to use express-fileupload middleware
 router.use(
   fileUpload({
     useTempFiles: true,
@@ -15,8 +14,9 @@ router.use(
 );
 
 router.post("/", async (req, res) => {
+  const { text, userId } = req.body;
+
   try {
-    const { text, userId } = req.body;
     let imageSrc;
 
     if (req.files) {

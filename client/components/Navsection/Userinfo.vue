@@ -4,7 +4,7 @@ const authStore = useAuthStore();
 
 <template>
   <div class=" rounded-3 bg-white p-3">
-    <NuxtLink :to="`/profile/${authStore.currentUser?.id}`" class="d-flex gap-4">
+    <div  class="d-flex gap-4">
       <img
         src="/profile-img.jpg"
         alt=""
@@ -14,9 +14,9 @@ const authStore = useAuthStore();
       />
       <div class="flex-column d-flex">
         <span>Full Name</span>
-        <span>{{ `@${authStore.currentUser?.username}` }}</span>
+        <NuxtLink :to="`/profile/${authStore.currentUser?.id}`">{{ `@${authStore.currentUser?.username}` }}</NuxtLink>
       </div>
-    </NuxtLink>
+    </div>
   </div>
 </template>
 

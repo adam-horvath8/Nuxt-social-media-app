@@ -2,16 +2,16 @@
 import { Form, Field } from "vee-validate";
 
 const fileInput = ref();
+const textInput = ref("");
 const fileName = ref("");
-
-console.log(fileInput.value);
 
 const authStore = useAuthStore();
 const postsStore = usePostsStore();
+const toastStore = useToastStore();
 
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
-    alert("No current user found");
+    toastStore.displayToast("You need to be logged in!", true);
     return;
   }
 
@@ -24,8 +24,13 @@ const handleSubmit = async (values: Record<string, any>) => {
     formData.append("image", fileInput.value.files[0]);
   }
 
-  postsStore.addPost(formData);
-  fileName.value = "";
+  if (values.post || fileInput.value.files[0]) {
+    postsStore.addPost(formData);
+    fileName.value = "";
+    textInput.value = "";
+  } else {
+    toastStore.displayToast("Post input is empty", false);
+  }
 };
 
 const triggerFileInput = () => {
@@ -42,8 +47,14 @@ const handleFileChange = () => {
 
 <template>
   <div class="card p-2 py-3 rounded-0">
-    <Form @submit="handleSubmit" >
-      <Field name="post" type="text" class="form-control mb-2" placeholder="What is on your mid?"/>
+    <Form @submit="handleSubmit">
+      <Field
+        name="post"
+        v-model="textInput"
+        type="text"
+        class="form-control mb-2"
+        placeholder="What is on your mind?"
+      />
       <div class="d-flex justify-content-between">
         <input
           name="image"

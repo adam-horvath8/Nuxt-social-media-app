@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { postsType, toastMessageType } from "~/types";
+import type { postsType } from "~/types";
 
 interface Ipost {
   message: string;
@@ -25,10 +25,10 @@ export const usePostsStore = defineStore("posts", () => {
       );
 
       if (error.value) {
-        alert(error.value);
+        toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
         posts.value = response.value.posts;
-        toastStore.displayToast(response.value.message);
+        toastStore.displayToast(response.value.message, true);
       }
     } catch (error) {
       console.error(error);
@@ -44,9 +44,9 @@ export const usePostsStore = defineStore("posts", () => {
       if (error.value) {
         errorMessage.value = error.value?.data.error;
       } else if (response.value && Array.isArray(response.value)) {
-        posts.value = response.value; 
+        posts.value = response.value;
       } else {
-        posts.value = []; 
+        posts.value = [];
       }
     } catch (err) {
       console.error(err);

@@ -8,8 +8,8 @@ const toastStore = useToastStore();
       v-if="toastStore.toastMessage"
       :title="toastStore.toastMessage.message"
       variant="outline"
-      color="primary"
-      class="c-alert col-sm-8 col-lg-4 bg-success-subtle text-center z-3"
+      :color="toastStore.isSuccess ? 'primary' : 'red'"
+      class="c-alert col-sm-8 col-lg-4 bg-white text-center z-3"
     />
   </div>
 </template>

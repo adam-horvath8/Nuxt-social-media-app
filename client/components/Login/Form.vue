@@ -16,7 +16,7 @@ const handleSubmit = async (values: Record<string, any>) => {
   await authStore.login(loginValues.username, loginValues.password);
 
   if (authStore.isAuth) {
-    toastStore.displayToast("Succesfull Login");
+    toastStore.displayToast("Succesfull Login", true);
     router.push("/home");
   } else {
     errorMessage.value = authStore.errorMessage;

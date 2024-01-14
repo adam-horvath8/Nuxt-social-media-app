@@ -10,6 +10,7 @@ const route = useRoute();
 <template>
   <div>
     {{ route.params.id }}
+    <ProfileForm />
   </div>
 </template>
 

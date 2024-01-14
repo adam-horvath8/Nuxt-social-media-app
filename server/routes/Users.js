@@ -25,6 +25,9 @@ router.post("/", async (req, res) => {
       data: {
         username: username,
         password: hash,
+        profile: {
+          create: {},
+        },
       },
     });
     res.json("USER REGISTERED");
@@ -89,7 +92,14 @@ router.get("/users", async (req, res) => {
       select: {
         id: true,
         username: true,
-        profile: true,
+        profile: {
+          select: {
+            userId: true,
+            profileImg: true,
+            name: true,
+            surname: true,
+          },
+        },
       },
     });
     if (allUsers) {
