@@ -2,7 +2,9 @@
 
 <template>
   <div class="d-flex flex-column align-items-center">
-    <HomePostInput class="w-100" />
+    <div class="card p-2 py-3 rounded-0 w-100">
+      <UiPostInput />
+    </div>
     <Post />
   </div>
 </template>

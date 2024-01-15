@@ -11,6 +11,31 @@ html {
   padding-top: 5.5rem;
 }
 
+.pp {
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+}
+
+.pp-big {
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
+  background-color: white;
+}
+
+.pp-xxl {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+}
+
+.username-link {
+  font-size: 0.7rem;
+}
+
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }

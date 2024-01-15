@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fileUpload = require("express-fileupload");
+const cloudinary = require("../cloud");
 const { PrismaClient } = require("@prisma/client");
 const { validateToken } = require("../JWT");
 
@@ -15,7 +16,7 @@ router.use(
 
 router.put("/:userId", async (req, res) => {
   const { userId } = req.params;
-  const { name, surname, address, description } = req.body;
+  const { name, surname, address, description, email, telNumber } = req.body;
 
   try {
     let profileImageSrc;
@@ -30,8 +31,6 @@ router.put("/:userId", async (req, res) => {
       profileImageSrc = uploadResponse.url;
     }
 
-
-
     const updatedProfile = await prisma.profile.update({
       where: { userId: userId },
       data: {
@@ -39,6 +38,8 @@ router.put("/:userId", async (req, res) => {
         surname: surname,
         address: address,
         description: description,
+        email: email,
+        telNumber: telNumber,
         profileImg: profileImageSrc,
       },
     });
@@ -46,6 +47,22 @@ router.put("/:userId", async (req, res) => {
     res
       .status(200)
       .json({ message: "Profile updated successfully", updatedProfile });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const usersProfile = await prisma.profile.findUnique({
+      where: { userId: userId },
+    });
+    res
+      .status(200)
+      .json({ message: "Profile sended successfully", usersProfile });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

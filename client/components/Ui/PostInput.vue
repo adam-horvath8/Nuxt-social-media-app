@@ -9,6 +9,8 @@ const authStore = useAuthStore();
 const postsStore = usePostsStore();
 const toastStore = useToastStore();
 
+const { modal } = defineProps(["modal"]);
+
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
     toastStore.displayToast("You need to be logged in!", true);
@@ -28,6 +30,7 @@ const handleSubmit = async (values: Record<string, any>) => {
     postsStore.addPost(formData);
     fileName.value = "";
     textInput.value = "";
+    modal.value = false;
   } else {
     toastStore.displayToast("Post input is empty", false);
   }
@@ -46,38 +49,37 @@ const handleFileChange = () => {
 </script>
 
 <template>
-  <div class="card p-2 py-3 rounded-0">
-    <Form @submit="handleSubmit">
-      <Field
-        name="post"
-        v-model="textInput"
-        type="text"
-        class="form-control mb-2"
-        placeholder="What is on your mind?"
+  <Form @submit="handleSubmit">
+    <Field
+      name="post"
+      v-model="textInput"
+      type="text"
+      class="form-control mb-2"
+      placeholder="What is on your mind?"
+      autocomlete="nope"
+    />
+    <div class="d-flex justify-content-between">
+      <input
+        name="image"
+        type="file"
+        class="d-none"
+        ref="fileInput"
+        @change="handleFileChange"
       />
-      <div class="d-flex justify-content-between">
-        <input
-          name="image"
-          type="file"
-          class="d-none"
-          ref="fileInput"
-          @change="handleFileChange"
-        />
-        <div>
-          <button
-            type="button"
-            @click="triggerFileInput"
-            class="btn btn-outline-primary mr-2"
-          >
-            <i class="bi bi-image"></i>
-          </button>
-          <span v-if="fileName">{{ fileName }}</span>
-        </div>
-
-        <button class="btn btn-primary flex-2 rounded-pill px-5">Post</button>
+      <div>
+        <button
+          type="button"
+          @click="triggerFileInput"
+          class="btn btn-outline-primary mr-2"
+        >
+          <i class="bi bi-image"></i>
+        </button>
+        <span v-if="fileName">{{ fileName }}</span>
       </div>
-    </Form>
-  </div>
+
+      <button class="btn btn-primary flex-2 rounded-pill px-5">Post</button>
+    </div>
+  </Form>
 </template>
 
 <style lang="css" scoped></style>

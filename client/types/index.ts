@@ -48,5 +48,7 @@ export type profileType = {
   surname?: string;
   address?: string;
   description?: string;
+  email?: string;
+  telNumber?: string;
   profileImg?: string;
 };

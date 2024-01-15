@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-defineProps(["users"]);
+import type { usersType } from '~/types';
+
+interface PropsI {
+  users: usersType
+}
+
+defineProps<PropsI>();
 </script>
 
 <template>
@@ -8,32 +14,13 @@ defineProps(["users"]);
       :to="`/profile/${user.id}`"
       v-for="user in users"
       :key="user.id"
-      class="row user-link p-2 rounded-3 "
+      class="row user-link p-2 rounded-3 text-decoration-none"
     >
-      <div class="col-2 p-0">
-        <img
-          v-if="user.profile?.profileImg"
-          :src="user.profile.profileImg"
-          alt="profile image"
-          class="post-profile rounded-circle"
-        />
-        <img
-          v-else
-          src="/profile-img.jpg"
-          alt="profile image"
-          width="50"
-          height="50"
-          class="rounded-circle post-profile"
-        />
+      <div class="col-3 p-0">
+        <UiProfileImg :user="user" :big="false"/>
       </div>
       <div class="col-9">
-        <div v-if="user.profile?.name && user.profile?.surname">
-          <span>{{ `${user.profile.name} ${user.profile.surname}` }}</span>
-          <span>{{ `@${user.username}` }}</span>
-        </div>
-        <div v-else>
-          <span>{{ `@${user.username}` }}</span>
-        </div>
+        <UiUserName :user="user"/>
       </div>
     </NuxtLink>
   </div>
@@ -45,8 +32,10 @@ defineProps(["users"]);
 }
 
 .users-list {
-  height: 30vh;
+  height: 50vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+
 </style>

@@ -23,7 +23,6 @@ const handleSubmit = async (values: Record<string, any>) => {
   formData.append("address", values.address);
   formData.append("email", values.email);
   formData.append("telNumber", values.telNumber);
-  formData.append("userId", authStore.currentUser?.id);
 
   if (fileInput.value && fileInput.value.files[0]) {
     formData.append("image", fileInput.value.files[0]);
@@ -31,8 +30,7 @@ const handleSubmit = async (values: Record<string, any>) => {
 
   profileStore.updateProfile(authStore.currentUser.id, formData);
   fileName.value = "";
-
-  toastStore.displayToast("Post input is empty", false);
+  modal.value = false;
 };
 
 const triggerFileInput = () => {
@@ -48,8 +46,8 @@ const handleFileChange = () => {
 </script>
 
 <template>
-  <BButton @click="modal = !modal"> Update Profile</BButton>
-  <BModal v-model="modal" title="Update Profile">
+  <BButton @click="modal = !modal" variant="primary"> Update Profile</BButton>
+  <BModal v-model="modal" title="Update Profile" hide-footer>
     <Form @submit="handleSubmit" class="d-flex flex-column gap-3 mx-2">
       <div class="d-flex flex-column">
         <input
@@ -72,11 +70,12 @@ const handleFileChange = () => {
       </div>
 
       <div>
-        <label for="name">Description:</label>
+        <label for="name">About me:</label>
         <Field
           id="description"
           name="description"
           type="text"
+          v-model="profileStore.profile.description"
           as="textarea"
           class="form-control"
           placeholder="d"
@@ -91,6 +90,7 @@ const handleFileChange = () => {
           id="name"
           name="name"
           type="text"
+          v-model="profileStore.profile.name"
           class="form-control"
           placeholder="d"
         />
@@ -102,6 +102,7 @@ const handleFileChange = () => {
           id="surname"
           name="surname"
           type="text"
+          v-model="profileStore.profile.surname"
           class="form-control"
           placeholder="d"
         />
@@ -113,6 +114,7 @@ const handleFileChange = () => {
           id="address"
           name="address"
           type="text"
+          v-model="profileStore.profile.address"
           class="form-control"
           placeholder="d"
         />
@@ -124,6 +126,7 @@ const handleFileChange = () => {
           id="email"
           name="email"
           type="email"
+          v-model="profileStore.profile.email"
           class="form-control"
           placeholder="d"
         />
@@ -135,6 +138,7 @@ const handleFileChange = () => {
           id="tel-number"
           name="telNumber"
           type="tel"
+          v-model="profileStore.profile.telNumber"
           class="form-control"
           placeholder="d"
         />
@@ -143,7 +147,7 @@ const handleFileChange = () => {
       <button
         class="btn btn-primary flex-2 rounded-pill px-5 align-self-center"
       >
-        Post
+        Submit
       </button>
     </Form>
   </BModal>
