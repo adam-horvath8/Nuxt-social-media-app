@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-const postsStore = usePostsStore();
+// const postsStore = usePostsStore();
 
-onMounted(() => {
-  postsStore.getPosts();
-});
+// onMounted(() => {
+//   postsStore.getPosts();
+// });
+
+defineProps(["posts"])
 </script>
 
 <template>
   <div
-    v-for="post in postsStore.posts"
+    v-for="post in posts"
     :key="post.id"
     class="card w-100 rounded-0"
   >

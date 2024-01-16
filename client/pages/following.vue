@@ -3,10 +3,16 @@ definePageMeta({
   middleware: ["auth"],
   layout: "main",
 });
+
+const subsStore = useSubsStore();
+
+onMounted(() => {
+  subsStore.getSubsPosts();
+});
 </script>
 
 <template>
-  <h1>Following</h1>
+  <Post :posts="subsStore.subsPosts" />
 </template>
 
 <style lang="css" scoped></style>

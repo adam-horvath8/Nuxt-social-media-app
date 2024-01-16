@@ -22,12 +22,7 @@ onMounted(() => {
 
 <template>
   <div class="bg-light p-2">
-    <button
-      v-if="params.id !== authStore.currentUser?.id"
-      class="btn btn-primary"
-    >
-      Follow
-    </button>
+    <ProfileSwitch  v-if="params.id !== authStore.currentUser?.id" :userId="params.id"/>
     <ProfileForm :userId="params.id" />
     <ProfileInfo />
     <hr />
