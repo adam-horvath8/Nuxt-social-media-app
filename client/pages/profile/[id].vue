@@ -8,6 +8,7 @@ const { params } = useRoute();
 const router = useRouter();
 
 const profileStore = useProfileStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
   const userId = Array.isArray(params.id) ? params.id[0] : params.id;
@@ -21,8 +22,16 @@ onMounted(() => {
 
 <template>
   <div class="bg-light p-2">
-    <ProfileForm />
+    <button
+      v-if="params.id !== authStore.currentUser?.id"
+      class="btn btn-primary"
+    >
+      Follow
+    </button>
+    <ProfileForm :userId="params.id" />
     <ProfileInfo />
+    <hr />
+    <ProfilePosts :userId="params.id" />
   </div>
 </template>
 

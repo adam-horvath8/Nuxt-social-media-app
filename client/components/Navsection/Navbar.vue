@@ -33,12 +33,6 @@ const authStore = useAuthStore();
         class="btn btn-light btn-lg text-start ps-4"
         ><i class="bi bi-person-lines-fill me-3"></i> Profile</NuxtLink
       >
-      <NuxtLink
-        to="/settings"
-        type="button"
-        class="btn btn-light btn-lg text-start ps-4"
-        ><i class="bi bi-gear-fill me-3"></i> Settings</NuxtLink
-      >
     </div>
   </nav>
 </template>

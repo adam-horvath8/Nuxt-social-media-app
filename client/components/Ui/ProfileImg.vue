@@ -9,7 +9,7 @@ defineProps<PropsI>();
 </script>
 
 <template>
-  <div>
+  <div class="d-flex justify-content-center">
     <img
       v-if="user.profile?.profileImg"
       :src="user.profile.profileImg"

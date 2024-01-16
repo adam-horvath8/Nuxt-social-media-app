@@ -10,7 +10,7 @@ defineProps<PropsI>();
 <template>
   <div
     v-if="user.profile?.name && user.profile?.surname"
-    class="d-flex flex-column"
+    class="d-flex flex-column "
   >
     <span class="text-black">{{
       `${user.profile.name} ${user.profile.surname}`

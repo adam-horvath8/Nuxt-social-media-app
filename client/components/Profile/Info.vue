@@ -3,7 +3,7 @@ const profileStore = useProfileStore();
 </script>
 
 <template>
-  <div class="d-flex flex-column ">
+  <div class="d-flex flex-column pt-3">
     <div class="align-self-center">
       <img
         v-if="profileStore.profile.profileImg"

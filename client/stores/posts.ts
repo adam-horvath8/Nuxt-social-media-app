@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { postsType } from "~/types";
 
 interface Ipost {
@@ -11,6 +11,7 @@ interface Ipost {
 export const usePostsStore = defineStore("posts", () => {
   const posts = ref<postsType>([]);
   const errorMessage = ref<string | undefined>();
+  const userId = ref("");
 
   const toastStore = useToastStore();
 
@@ -53,5 +54,13 @@ export const usePostsStore = defineStore("posts", () => {
     }
   };
 
-  return { posts, errorMessage, getPosts, addPost };
+  const setUserId = (id: string) => {
+    userId.value = id;
+  };
+
+  const filteredPosts = computed(() => {
+    return posts.value.filter((post) => post.userId === userId.value);
+  });
+
+  return { posts, errorMessage, getPosts, addPost, setUserId, filteredPosts };
 });
