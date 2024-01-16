@@ -1,19 +1,21 @@
 <script lang="ts" setup>
+import { useUsersStore } from "~/stores/users";
 import type { userType } from "~/types";
 
 const user = ref<userType>();
 const authStore = useAuthStore();
-const { getUsers, getSpecificUser } = useGetUsers();
 
-const fetchAndSetUser = async () => {
-  await getUsers();
+const usersStore = useUsersStore();
 
+const fetchAndSetUser = async() => {
   if (authStore.currentUser) {
-    user.value = getSpecificUser(authStore.currentUser.id);
+    await usersStore.getUsers();
+    user.value =  usersStore.getSpecificUser(authStore.currentUser.id);
+    console.log(user.value);
   }
 };
 
-watchEffect(fetchAndSetUser);
+onMounted(fetchAndSetUser);
 </script>
 
 <template>

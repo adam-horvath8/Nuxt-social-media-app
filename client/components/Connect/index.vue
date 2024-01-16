@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-const { users, getUsers } = useGetUsers();
+import { useUsersStore } from "~/stores/users";
 
-watchEffect(() => {
- getUsers();
+const usersStore = useUsersStore();
+
+onMounted(async () => {
+  await usersStore.getUsers();
 });
 </script>
 
@@ -10,7 +12,7 @@ watchEffect(() => {
   <div class="p-3 bg-white my-2 rounded-3">
     <h5>Connect</h5>
     <ConnectInput />
-    <ConnectUsers :users="users" />
+    <ConnectUsers :users="usersStore.searchUsers" />
   </div>
 </template>
 

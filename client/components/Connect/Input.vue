@@ -1,4 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useUsersStore } from '~/stores/users';
+
+const searchTerm = ref("");
+
+const usersStore = useUsersStore()
+
+const handleSearch = () => {
+  usersStore.setSearchTerm(searchTerm.value);
+};
+</script>
 
 <template>
   <div class="input-group">
@@ -8,6 +18,8 @@
       ><i class="bi bi-search"></i
     ></span>
     <input
+      v-model="searchTerm"
+      @input="handleSearch"
       class="form-control rounded-end-pill"
       type="text"
       placeholder="Search User..."

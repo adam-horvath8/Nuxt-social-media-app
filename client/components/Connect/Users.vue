@@ -5,7 +5,10 @@ interface PropsI {
   users: usersType
 }
 
-defineProps<PropsI>();
+const {users} = defineProps<PropsI>();
+
+console.log(users);
+
 </script>
 
 <template>
