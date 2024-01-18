@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
 
-defineProps(["userId"])
+defineProps(["userId"]);
 
 const modal = ref(false);
 const fileName = ref("");
@@ -9,6 +9,7 @@ const fileInput = ref();
 
 const toastStore = useToastStore();
 const profileStore = useProfileStore();
+const usersStore = useUsersStore();
 const authStore = useAuthStore();
 
 const handleSubmit = async (values: Record<string, any>) => {
@@ -48,7 +49,13 @@ const handleFileChange = () => {
 </script>
 
 <template>
-  <BButton v-if="userId === authStore.currentUser?.id" @click="modal = !modal" variant="primary"> Update Profile</BButton>
+  <BButton
+    v-if="userId === authStore.currentUser?.id"
+    @click="modal = !modal"
+    variant="primary"
+  >
+    Update Profile</BButton
+  >
   <BModal v-model="modal" title="Update Profile" hide-footer>
     <Form @submit="handleSubmit" class="d-flex flex-column gap-3 mx-2">
       <div class="d-flex flex-column">

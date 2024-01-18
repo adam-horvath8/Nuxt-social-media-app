@@ -62,5 +62,16 @@ export const usePostsStore = defineStore("posts", () => {
     return posts.value.filter((post) => post.userId === userId.value);
   });
 
-  return { posts, errorMessage, getPosts, addPost, setUserId, filteredPosts };
+  const reversePosts = computed(() => {
+    return [...posts.value].reverse();
+  });
+
+  return {
+    posts: reversePosts,
+    errorMessage,
+    getPosts,
+    addPost,
+    setUserId,
+    filteredPosts,
+  };
 });

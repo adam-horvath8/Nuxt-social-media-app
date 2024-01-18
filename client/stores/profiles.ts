@@ -22,6 +22,7 @@ export const useProfileStore = defineStore("profile", () => {
   });
 
   const toastStore = useToastStore();
+  const usersStore = useUsersStore();
 
   const updateProfile = async (userId: string, formData: FormData) => {
     try {
@@ -36,8 +37,8 @@ export const useProfileStore = defineStore("profile", () => {
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
-        profile.value = response.value.updatedProfile;
-        // toastStore.displayToast(response.value , true);
+        profile.value = sanitizeProfileData(response.value.updatedProfile);
+        usersStore.updateUser(response.value.updatedProfile);
       }
     } catch (error) {
       console.error(error);
@@ -52,7 +53,7 @@ export const useProfileStore = defineStore("profile", () => {
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
-        profile.value = response.value.usersProfile;
+        profile.value = sanitizeProfileData(response.value.usersProfile);
         // toastStore.displayToast(response.value , true);
       }
     } catch (error) {

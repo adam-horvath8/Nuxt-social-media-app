@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import type { usersType } from "~/types";
+import type { profileType, usersType } from "~/types";
 
 export const useUsersStore = defineStore("users", () => {
   const users = ref<usersType>([]);
@@ -23,6 +23,13 @@ export const useUsersStore = defineStore("users", () => {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const updateUser = (updatedProfile: profileType) => {
+    const userIndex = users.value.findIndex(user => user.id === updatedProfile.userId);
+    if (userIndex !== -1) {
+      users.value[userIndex].profile = updatedProfile;
     }
   };
 
@@ -53,5 +60,6 @@ export const useUsersStore = defineStore("users", () => {
     getSpecificUser,
     searchUsers,
     setSearchTerm,
+    updateUser
   };
 });
