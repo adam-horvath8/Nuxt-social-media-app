@@ -20,7 +20,6 @@ export const useProfileStore = defineStore("profile", () => {
     email: "",
     telNumber: "",
   });
-  const errorMessage = ref();
 
   const toastStore = useToastStore();
 

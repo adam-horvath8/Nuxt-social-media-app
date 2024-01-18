@@ -1,32 +1,24 @@
 <script lang="ts" setup>
-// const postsStore = usePostsStore();
-
-// onMounted(() => {
-//   postsStore.getPosts();
-// });
-
-defineProps(["posts"])
+defineProps(["posts"]);
 </script>
 
 <template>
-  <div
-    v-for="post in posts"
-    :key="post.id"
-    class="card w-100 rounded-0"
-  >
+  <div v-for="post in posts" :key="post.id" class="card w-100 rounded-0">
     <div class="card-body">
       <NuxtLink
         :to="`/profile/${post.userId}`"
         class="row text-decoration-none mb-3"
       >
-        <div class="col-2  p-0">
+        <div class="col-2 p-0">
           <UiProfileImg :user="post.user" :big="false" />
         </div>
         <div class="col-10 p-0">
           <UiUserName :user="post.user" />
         </div>
       </NuxtLink>
-      <PostText :post="post" />
+      <NuxtLink :to="`/post/${post.id}`">
+        <PostText :post="post" />
+      </NuxtLink>
     </div>
   </div>
 </template>
