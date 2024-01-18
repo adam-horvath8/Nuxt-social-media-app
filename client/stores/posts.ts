@@ -66,6 +66,11 @@ export const usePostsStore = defineStore("posts", () => {
     return [...posts.value].reverse();
   });
 
+  const post = (postId: string) => {
+    const post = computed(() => posts.value.find((post) => post.id === postId));    
+    return post.value
+  };
+
   return {
     posts: reversePosts,
     errorMessage,
@@ -73,5 +78,6 @@ export const usePostsStore = defineStore("posts", () => {
     addPost,
     setUserId,
     filteredPosts,
+    post
   };
 });

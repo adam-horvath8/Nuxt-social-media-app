@@ -30,9 +30,7 @@ console.log(users);
 </template>
 
 <style lang="css" scoped>
-.user-link:hover {
-  background-color: rgb(239, 239, 239, 1);
-}
+
 
 .users-list {
   height: 50vh;

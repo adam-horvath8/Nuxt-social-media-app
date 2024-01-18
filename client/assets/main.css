@@ -36,6 +36,14 @@ html {
   font-size: 0.7rem;
 }
 
+.user-link:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.post-link:hover {
+  background-color: rgb(245, 245, 245);
+}
+
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }

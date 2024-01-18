@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 const modal = ref(false);
+
+const handleCloseModal = () => {
+  modal.value = false
+}
 </script>
 
 <template>
@@ -11,7 +15,7 @@ const modal = ref(false);
       >Add Post</BButton
     >
     <BModal v-model="modal" hide-footer>
-      <UiPostInput :modal="modal"/>
+      <UiPostInput @close:modal="handleCloseModal"/>
     </BModal>
   </div>
 </template>

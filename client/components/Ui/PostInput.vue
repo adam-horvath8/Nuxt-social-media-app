@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
 
+interface PropsI {
+  isComment?: boolean
+}
+
 const fileInput = ref();
 const textInput = ref("");
 const fileName = ref("");
@@ -9,7 +13,9 @@ const authStore = useAuthStore();
 const postsStore = usePostsStore();
 const toastStore = useToastStore();
 
-const { modal } = defineProps(["modal"]);
+const {  isComment } = defineProps<PropsI>();
+
+const emit = defineEmits(["close:modal"])
 
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
@@ -30,7 +36,7 @@ const handleSubmit = async (values: Record<string, any>) => {
     postsStore.addPost(formData);
     fileName.value = "";
     textInput.value = "";
-    modal.value = false;
+    emit("close:modal")
   } else {
     toastStore.displayToast("Post input is empty", false);
   }
@@ -49,7 +55,7 @@ const handleFileChange = () => {
 </script>
 
 <template>
-  <Form @submit="handleSubmit">
+  <Form @submit="handleSubmit" class="p-3 bg-white card rounded-0">
     <Field
       name="post"
       v-model="textInput"
