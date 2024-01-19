@@ -23,6 +23,9 @@ router.get("/", async (req, res) => {
         subscribedTo: {
           include: {
             posts: {
+              where: {
+                replytoId: null,
+              },
               include: {
                 user: {
                   select: {
@@ -107,25 +110,26 @@ router.get("/check", async (req, res) => {
     const { subscriberId, subscribedToId } = req.query;
 
     if (!subscriberId || !subscribedToId) {
-      return res.status(400).json({ error: "Missing subscriberId or subscribedToId" });
+      return res
+        .status(400)
+        .json({ error: "Missing subscriberId or subscribedToId" });
     }
 
     const subscription = await prisma.subscription.findFirst({
       where: {
         AND: [
           { subscriberId: subscriberId },
-          { subscribedToId: subscribedToId }
-        ]
-      }
+          { subscribedToId: subscribedToId },
+        ],
+      },
     });
 
-    if(subscription){
-    res.json({ isSubscribed: true });
+    if (subscription) {
+      res.json({ isSubscribed: true });
     }
-    if(!subscription){
-    res.json({ isSubscribed: false });
+    if (!subscription) {
+      res.json({ isSubscribed: false });
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

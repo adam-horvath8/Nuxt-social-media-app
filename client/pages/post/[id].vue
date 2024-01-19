@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { postType } from "~/types";
-
 definePageMeta({
   middleware: ["auth"],
   layout: "main",
@@ -16,11 +14,6 @@ postsStore.setCurrentPostId(postId);
 const post = postsStore.post();
 
 console.log(post);
-
-watchEffect(async () => {
-  await postsStore.getComments(postId);
-  console.log(postsStore.commentPosts);
-});
 </script>
 
 <template>

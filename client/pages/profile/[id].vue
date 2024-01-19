@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
   <div class="bg-light p-2">
-    <ProfileSwitch  v-if="params.id !== authStore.currentUser?.id" :userId="params.id"/>
+    <ProfileSwitch  v-if="params.id !== authStore.currentUser?.id" :subscribedToId="params.id" :subscriberId="authStore.currentUser?.id"/>
     <ProfileForm :userId="params.id" />
     <ProfileInfo />
     <hr />

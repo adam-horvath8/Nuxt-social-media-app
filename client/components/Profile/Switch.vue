@@ -3,19 +3,19 @@ const subsStore = useSubsStore();
 
 const switchChecked = ref<boolean | undefined>(false);
 
-const { userId } = defineProps(["userId"]);
+const { subscribedToId, subscriberId } = defineProps(["subscribedToId", "subscriberId"]);
 
 watch(switchChecked, async (newValue, oldValue) => {
   if (newValue === true && oldValue === false) {
-    await subsStore.addSubscription(userId);
+    await subsStore.addSubscription(subscribedToId, subscriberId);
   }
   if (newValue === false && oldValue === true) {
-    await subsStore.deleteSubscription(userId);
+    await subsStore.deleteSubscription(subscribedToId, subscriberId);
   }
 });
 
 onMounted(async () => {
-  switchChecked.value = await subsStore.checkSubscription(userId);
+  switchChecked.value = await subsStore.checkSubscription(subscribedToId, subscriberId);
 });
 </script>
 

@@ -61,9 +61,6 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const allPosts = await prisma.post.findMany({
-      where: {
-        replytoId: null,
-      },
       include: {
         user: {
           select: {
@@ -76,32 +73,6 @@ router.get("/", async (req, res) => {
     });
 
     res.status(200).json(allPosts); // Send the retrieved posts as a response
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-
-  try {
-    const comments = await prisma.post.findMany({
-      where: {
-        replytoId: postId,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profile: true,
-          },
-        },
-      },
-    });
-
-    res.status(200).json(comments);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });

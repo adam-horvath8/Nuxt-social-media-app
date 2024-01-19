@@ -5,9 +5,12 @@ definePageMeta({
 });
 
 const subsStore = useSubsStore();
+const authStore = useAuthStore();
 
-onMounted(() => {
-  subsStore.getSubsPosts();
+watchEffect(() => {
+  if (authStore.currentUser) {
+    subsStore.getSubsPosts(authStore.currentUser?.id);
+  }
 });
 </script>
 

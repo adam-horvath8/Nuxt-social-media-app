@@ -7,12 +7,8 @@ interface CheckSubscriptionResponse {
 export const useSubsStore = defineStore("subs", () => {
   const subsPosts = ref();
 
-  const authStore = useAuthStore();
-
-  const userId = authStore.currentUser?.id;
-  const getSubsPosts = async () => {
+  const getSubsPosts = async (userId: string) => {
     try {
-
       if (!userId) {
         throw new Error("User ID is undefined");
       }
@@ -29,21 +25,23 @@ export const useSubsStore = defineStore("subs", () => {
       if (response.value) {
         subsPosts.value = response.value;
         console.log(subsPosts.value);
-        
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addSubscription = async (subscribedToId: string) => {
+  const addSubscription = async (
+    subscribedToId: string,
+    subscriberId: string
+  ) => {
     try {
       const { data: response, error } = await useFetch(
         "http://localhost:3004/subscription",
         {
           method: "post",
           body: {
-            subscriberId: authStore.currentUser?.id,
+            subscriberId: subscriberId,
             subscribedToId: subscribedToId,
           },
         }
@@ -60,14 +58,17 @@ export const useSubsStore = defineStore("subs", () => {
     }
   };
 
-  const deleteSubscription = async (subscribedToId: string) => {
+  const deleteSubscription = async (
+    subscribedToId: string,
+    subscriberId: string
+  ) => {
     try {
       const { data: response, error } = await useFetch(
         "http://localhost:3004/subscription",
         {
           method: "delete",
           body: {
-            subscriberId: authStore.currentUser?.id,
+            subscriberId: subscriberId,
             subscribedToId: subscribedToId,
           },
         }
@@ -84,27 +85,38 @@ export const useSubsStore = defineStore("subs", () => {
     }
   };
 
-  const checkSubscription = async (subscribedToId: string) => {
-    if (!userId) {
+  const checkSubscription = async (
+    subscribedToId: string,
+    subscriberId: string
+  ) => {
+    if (!subscriberId) {
       return false;
     }
 
     try {
-      const { data: response, error } = await useFetch<CheckSubscriptionResponse>(
-        `http://localhost:3004/subscription/check?subscriberId=${encodeURIComponent(userId)}&subscribedToId=${encodeURIComponent(subscribedToId)}`
-      );
+      const { data: response, error } =
+        await useFetch<CheckSubscriptionResponse>(
+          `http://localhost:3004/subscription/check?subscriberId=${encodeURIComponent(
+            subscriberId
+          )}&subscribedToId=${encodeURIComponent(subscribedToId)}`
+        );
 
       if (error.value) {
         console.error(error.value.data);
         return false;
       }
-      return response.value?.isSubscribed
+      return response.value?.isSubscribed;
     } catch (error) {
       console.error(error);
       return false;
     }
   };
 
-
-  return { subsPosts, getSubsPosts, addSubscription, deleteSubscription, checkSubscription };
+  return {
+    subsPosts,
+    getSubsPosts,
+    addSubscription,
+    deleteSubscription,
+    checkSubscription,
+  };
 });
