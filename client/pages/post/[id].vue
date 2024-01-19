@@ -12,9 +12,15 @@ const { params } = useRoute();
 
 const postId = Array.isArray(params.id) ? params.id[0] : params.id;
 
-const post = postsStore.post(postId);
+postsStore.setCurrentPostId(postId);
+const post = postsStore.post();
 
 console.log(post);
+
+watchEffect(async () => {
+  await postsStore.getComments(postId);
+  console.log(postsStore.commentPosts);
+});
 </script>
 
 <template>
@@ -39,8 +45,8 @@ console.log(post);
         <PostText :post="post" />
       </div>
     </NuxtLink>
-    <UiPostInput :isComment="true"/>
-    <Post />
+    <UiPostInput :isComment="true" :postId="post.id" />
+    <Post :posts="postsStore.commentPosts" />
   </div>
 
   <div v-else>

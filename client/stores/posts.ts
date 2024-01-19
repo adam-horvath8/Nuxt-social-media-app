@@ -10,6 +10,7 @@ interface Ipost {
 
 export const usePostsStore = defineStore("posts", () => {
   const posts = ref<postsType>([]);
+  const currentPostId = ref("");
   const errorMessage = ref<string | undefined>();
   const userId = ref("");
 
@@ -54,8 +55,30 @@ export const usePostsStore = defineStore("posts", () => {
     }
   };
 
+  const getComments = async (postId: string) => {
+    try {
+      const { data: response, error } = await useFetch(
+        `http://localhost:3004/posts/${postId}`
+      );
+      if (error.value) {
+        errorMessage.value = error.value?.data.error;
+      } else if (response.value && Array.isArray(response.value)) {
+        posts.value = response.value;
+      } else {
+        posts.value = [];
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   const setUserId = (id: string) => {
     userId.value = id;
+  };
+
+  const setCurrentPostId = (id: string) => {
+    currentPostId.value = id;
   };
 
   const filteredPosts = computed(() => {
@@ -66,9 +89,13 @@ export const usePostsStore = defineStore("posts", () => {
     return [...posts.value].reverse();
   });
 
-  const post = (postId: string) => {
-    const post = computed(() => posts.value.find((post) => post.id === postId));    
-    return post.value
+  const commentPosts = computed(() => {
+    return posts.value.filter((post) => post.replytoId === currentPostId.value).reverse();
+  });
+
+  const post = () => {
+    const post = computed(() => posts.value.find((post) => post.id === currentPostId.value));
+    return post.value;
   };
 
   return {
@@ -78,6 +105,9 @@ export const usePostsStore = defineStore("posts", () => {
     addPost,
     setUserId,
     filteredPosts,
-    post
+    post,
+    getComments,
+    commentPosts,
+    setCurrentPostId
   };
 });

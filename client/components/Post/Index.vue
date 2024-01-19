@@ -22,6 +22,7 @@ defineProps(["posts"]);
         </div>
       </NuxtLink>
       <PostText :post="post" />
+      <PostComments :post="post"/>
     </div>
   </NuxtLink>
 </template>

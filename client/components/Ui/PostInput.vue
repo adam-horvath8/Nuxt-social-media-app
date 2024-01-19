@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
+import type { postType } from "~/types";
 
 interface PropsI {
   isComment?: boolean
+  postId?: string
 }
 
 const fileInput = ref();
@@ -13,7 +15,7 @@ const authStore = useAuthStore();
 const postsStore = usePostsStore();
 const toastStore = useToastStore();
 
-const {  isComment } = defineProps<PropsI>();
+const {  isComment, postId } = defineProps<PropsI>();
 
 const emit = defineEmits(["close:modal"])
 
@@ -30,6 +32,10 @@ const handleSubmit = async (values: Record<string, any>) => {
 
   if (fileInput.value && fileInput.value.files[0]) {
     formData.append("image", fileInput.value.files[0]);
+  }
+
+  if(isComment && postId){
+    formData.append("replyToId", postId)
   }
 
   if (values.post || fileInput.value.files[0]) {
