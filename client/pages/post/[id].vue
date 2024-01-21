@@ -21,12 +21,12 @@ console.log(post);
     <NuxtLink
       :to="`/post/${post.id}`"
       :key="post.id"
-      class="card w-100 rounded-0 post-link mb-1"
+      class="card w-100 rounded-0 post-link mb-3 border-primary border-2 p-2 pb-0 text-decoration-none"
     >
       <div class="card-body pt-1 w-100">
         <NuxtLink
           :to="`/profile/${post.userId}`"
-          class="row text-decoration-none user-link rounded-3 p-2"
+          class="row user-link rounded-3 p-2"
         >
           <div class="col-2 p-0">
             <UiProfileImg :user="post.user" :big="false" />
@@ -36,6 +36,10 @@ console.log(post);
           </div>
         </NuxtLink>
         <PostText :post="post" />
+      </div>
+      <div class="d-flex justify-content-between">
+        <PostComments :post="post" />
+        <PostLike :post="post" />
       </div>
     </NuxtLink>
     <UiPostInput :isComment="true" :postId="post.id" />

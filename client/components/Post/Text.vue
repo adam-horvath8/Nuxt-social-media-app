@@ -9,7 +9,7 @@ defineProps<PropsI>()
 </script>
 
 <template>
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-1"></div>
         <div class="col-10 p-0 ">
           <p class="mb-2">{{ post.text }}</p>

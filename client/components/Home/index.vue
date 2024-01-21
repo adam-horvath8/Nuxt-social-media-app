@@ -11,7 +11,7 @@ onMounted(() => {
     <div class="rounded-0 w-100 mb-1">
       <UiPostInput />
     </div>
-    <Post :posts="postsStore.posts"/>
+    <Post :posts="postsStore.reversePosts" />
   </div>
 </template>
 

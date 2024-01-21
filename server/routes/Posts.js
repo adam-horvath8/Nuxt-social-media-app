@@ -30,28 +30,36 @@ router.post("/", async (req, res) => {
     }
 
     // Now save the post with the image URL
-    await prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         text: text,
         userId: userId,
         imageSrc: imageSrc,
         replytoId: replyToId || null,
       },
-    });
-
-    const allPosts = await prisma.post.findMany({
       include: {
         user: {
           include: {
-            profile: true, // This will include the profile data for each user
+            profile: true, // This will include the profile data for the user
+          },
+        },
+        likes: {
+          select: {
+            postId: true,
           },
         },
       },
     });
 
+    const postWithLikes = {
+      ...newPost,
+      likesCount: newPost.likes.length,
+    };
+
+
     res
       .status(200)
-      .json({ message: "Post Successfully Added", posts: allPosts });
+      .json({ message: "Post Successfully Added", post: postWithLikes });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
@@ -69,10 +77,20 @@ router.get("/", async (req, res) => {
             profile: true,
           },
         },
+        likes: {
+          select: {
+            postId: true,
+          },
+        },
       },
     });
 
-    res.status(200).json(allPosts); // Send the retrieved posts as a response
+    const postsWithLikes = allPosts.map((post) => ({
+      ...post,
+      likesCount: post.likes.length,
+    }));
+
+    res.status(200).json(postsWithLikes);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });

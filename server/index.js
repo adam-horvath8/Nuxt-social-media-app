@@ -21,6 +21,9 @@ app.use("/auth", usersRouter);
 const subsRouter = require("./routes/Subs");
 app.use("/subscription", subsRouter);
 
+const likesRouter = require("./routes/Likes");
+app.use("/like", likesRouter);
+
 app.listen(3004, () => {
   console.log("server running");
 });

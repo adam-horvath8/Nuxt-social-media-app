@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import type { postsType } from "~/types";
+import type { postType, postsType } from "~/types";
 
 interface Ipost {
   message: string;
   error: string;
-  posts: postsType;
+  post: postType;
 }
 
 export const usePostsStore = defineStore("posts", () => {
@@ -29,7 +29,7 @@ export const usePostsStore = defineStore("posts", () => {
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
-        posts.value = response.value.posts;
+        posts.value.push(response.value.post);
         toastStore.displayToast(response.value.message, true);
       }
     } catch (error) {
@@ -87,8 +87,21 @@ export const usePostsStore = defineStore("posts", () => {
     return post.value;
   };
 
+  const updateLikesCount = (postId: string, increment?: boolean) => {
+    const foundPost = posts.value.find((p) => p.id === postId);
+    if (foundPost) {
+      if (increment) {
+        foundPost.likesCount++;
+      } else {
+        foundPost.likesCount--;
+      }
+      posts.value = [...posts.value]; // Ensure reactivity
+    }
+  };
+
   return {
-    posts: reversePosts,
+    reversePosts,
+    posts,
     errorMessage,
     getPosts,
     addPost,
@@ -97,5 +110,6 @@ export const usePostsStore = defineStore("posts", () => {
     post,
     commentPosts,
     setCurrentPostId,
+    updateLikesCount,
   };
 });

@@ -34,6 +34,11 @@ router.get("/", async (req, res) => {
                     profile: true,
                   },
                 },
+                likes: {
+                  select: {
+                    postId: true,
+                  },
+                },
               },
             },
           },
@@ -42,9 +47,12 @@ router.get("/", async (req, res) => {
     });
 
     // Flatten the posts array
-    const posts = subscribedPosts.flatMap(
-      (subscription) => subscription.subscribedTo.posts
-    );
+    const posts = subscribedPosts
+      .flatMap((subscription) => subscription.subscribedTo.posts)
+      .map((post) => ({
+        ...post,
+        likesCount: post.likes.length,
+      }));
 
     res.json(posts);
   } catch (error) {
@@ -97,7 +105,7 @@ router.delete("/", async (req, res) => {
     if (subscription.count > 0) {
       res.json({ message: "Subscription deleted successfully" });
     } else {
-      res.status(404).json({ error: "Subscription not found" });
+      res.status(400).json({ error: "Subscription not found" });
     }
   } catch (error) {
     console.error(error);

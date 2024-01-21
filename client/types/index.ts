@@ -29,6 +29,8 @@ export type postType = {
   userId: string;
   replytoId: string;
   user: userType;
+  likes: [];
+  likesCount: number;
 };
 
 export type postsType = postType[];
@@ -51,4 +53,14 @@ export type profileType = {
   email?: string;
   telNumber?: string;
   profileImg?: string;
+};
+
+export type likeType = {
+  createdAt: string;
+  userId: string;
+  postId: string;
+  user: {
+    id: string;
+    username: string;
+  };
 };

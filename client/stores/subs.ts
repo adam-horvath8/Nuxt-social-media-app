@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { postsType } from "~/types";
 
 interface CheckSubscriptionResponse {
   isSubscribed: boolean;
@@ -112,11 +113,24 @@ export const useSubsStore = defineStore("subs", () => {
     }
   };
 
+  const updateLikesCount = (postId: string, increment?: boolean) => {
+    const foundPost = subsPosts.value.find((p: any) => p.id === postId);
+    if (foundPost) {
+      if (increment) {
+        foundPost.likesCount++;
+      } else {
+        foundPost.likesCount--;
+      }
+      subsPosts.value = [...subsPosts.value]; // Ensure reactivity
+    }
+  };
+
   return {
     subsPosts,
     getSubsPosts,
     addSubscription,
     deleteSubscription,
     checkSubscription,
+    updateLikesCount,
   };
 });
