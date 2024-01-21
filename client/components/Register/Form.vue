@@ -59,7 +59,7 @@ const handleSubmit = async (values: Record<string, any>) => {
 </script>
 
 <template>
-  <Form :validation-schema="validationSchema" @submit="handleSubmit">
+  <Form :validation-schema="validationSchema" @submit="handleSubmit" >
     <h1 class="display-1 mb-5">Register</h1>
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
@@ -102,8 +102,11 @@ const handleSubmit = async (values: Record<string, any>) => {
       <ErrorMessage name="confirmPassword" class="text-danger" />
     </div>
     <div>
-      <button type="submit" class="btn btn-primary">Register</button>
-      <NuxtLink to="/">Log in</NuxtLink>
+      <div class="d-flex gap-2 align-items-center">
+        <button type="submit" class="btn btn-primary">Register</button>
+        <NuxtLink to="/">Log in</NuxtLink>
+      </div>
+
       <div v-if="errorMessage" class="form-text text-danger">
         {{ errorMessage }}
       </div>

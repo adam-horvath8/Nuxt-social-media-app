@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <Login class="col-6" />
+  <Login/>
 </template>
 
 <style lang="css" scoped></style>

@@ -46,7 +46,7 @@ const handleSubmit = async (values: Record<string, any>) => {
         id="password"
       />
     </div>
-    <div>
+    <div class="d-flex gap-2 align-items-center">
       <button type="submit" class="btn btn-primary">Log In</button>
       <NuxtLink to="/register">Register</NuxtLink>
     </div>

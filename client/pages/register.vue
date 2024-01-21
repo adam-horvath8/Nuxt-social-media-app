@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <Register class="col-6" />
+  <Register />
 </template>
