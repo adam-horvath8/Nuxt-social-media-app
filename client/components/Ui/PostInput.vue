@@ -3,8 +3,8 @@ import { Form, Field } from "vee-validate";
 import type { postType } from "~/types";
 
 interface PropsI {
-  isComment?: boolean
-  postId?: string
+  isComment?: boolean;
+  postId?: string;
 }
 
 const fileInput = ref();
@@ -15,9 +15,9 @@ const authStore = useAuthStore();
 const postsStore = usePostsStore();
 const toastStore = useToastStore();
 
-const {  isComment, postId } = defineProps<PropsI>();
+const { isComment, postId } = defineProps<PropsI>();
 
-const emit = defineEmits(["close:modal"])
+const emit = defineEmits(["close:modal"]);
 
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
@@ -34,15 +34,23 @@ const handleSubmit = async (values: Record<string, any>) => {
     formData.append("image", fileInput.value.files[0]);
   }
 
-  if(isComment && postId){
-    formData.append("replyToId", postId)
+  if (isComment && postId) {
+    formData.append("replyToId", postId);
   }
 
   if (values.post || fileInput.value.files[0]) {
     postsStore.addPost(formData);
+
     fileName.value = "";
+
     textInput.value = "";
-    emit("close:modal")
+
+    if (fileInput.value) {
+      fileInput.value.value = ""; 
+    }
+
+    emit("close:modal");
+    
   } else {
     toastStore.displayToast("Post input is empty", false);
   }

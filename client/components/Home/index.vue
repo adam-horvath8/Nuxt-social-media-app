@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 const postsStore = usePostsStore();
 
-onMounted(() => {
-  postsStore.getPosts();
+onMounted(async () => {
+  await postsStore.getPosts();
 });
 </script>
 
@@ -11,7 +11,7 @@ onMounted(() => {
     <div class="rounded-0 w-100 mb-1">
       <UiPostInput />
     </div>
-    <Post :posts="postsStore.reversePosts" />
+    <Post :posts="postsStore.filteredPosts" />
   </div>
 </template>
 

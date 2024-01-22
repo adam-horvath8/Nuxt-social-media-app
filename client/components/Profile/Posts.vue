@@ -13,14 +13,14 @@ watch(
   { immediate: true }
 );
 
-const filteredPosts = postsStore.filteredPosts;
-console.log(filteredPosts);
+const filteredProfilePosts = postsStore.filteredProfilePosts;
+console.log(filteredProfilePosts);
 </script>
 
 <template>
   <div>
-    <h3 v-if="filteredPosts.length > 0">Posts</h3>
-    <Post :posts="filteredPosts" />
+    <h3 v-if="filteredProfilePosts.length > 0">Posts</h3>
+    <Post :posts="filteredProfilePosts" />
   </div>
 </template>
 

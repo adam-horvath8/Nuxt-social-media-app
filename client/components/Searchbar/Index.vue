@@ -13,7 +13,7 @@
             class="rounded-circle"
           />
         </NuxtLink>
-        <div class="col-6"><SearchbarInput /></div>
+        <!-- <div class="col-6"><SearchbarInput /></div> -->
         <div class="col-2"><SearchbarLogout /></div>
       </div>
     </div>

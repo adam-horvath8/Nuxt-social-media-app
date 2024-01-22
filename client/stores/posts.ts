@@ -64,14 +64,14 @@ export const usePostsStore = defineStore("posts", () => {
     currentPostId.value = id;
   };
 
-  const filteredPosts = computed(() => {
+  const filteredProfilePosts = computed(() => {
     return posts.value.filter(
       (post) => post.userId === userId.value && post.replytoId === null
     );
   });
 
-  const reversePosts = computed(() => {
-    return [...posts.value].reverse();
+  const filteredPosts = computed(() => {
+    return posts.value.filter((post) => post.replytoId === null);
   });
 
   const commentPosts = computed(() => {
@@ -100,12 +100,12 @@ export const usePostsStore = defineStore("posts", () => {
   };
 
   return {
-    reversePosts,
     posts,
     errorMessage,
     getPosts,
     addPost,
     setUserId,
+    filteredProfilePosts,
     filteredPosts,
     post,
     commentPosts,

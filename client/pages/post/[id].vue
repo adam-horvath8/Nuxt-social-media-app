@@ -37,10 +37,6 @@ console.log(post);
         </NuxtLink>
         <PostText :post="post" />
       </div>
-      <div class="d-flex justify-content-between">
-        <PostComments :post="post" />
-        <PostLike :post="post" />
-      </div>
     </NuxtLink>
     <UiPostInput :isComment="true" :postId="post.id" />
     <Post :posts="postsStore.commentPosts" />
