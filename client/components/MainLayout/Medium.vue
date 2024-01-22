@@ -3,7 +3,7 @@
 <template>
   <div class="d-none d-md-block d-lg-none">
     <div class="navbar-style position-fixed left-10 top-20"><Navsection /></div>
-    <div class="navbar-style position-fixed left-10 bottom-2">
+    <div class="navbar-style position-fixed left-10 top-50">
       <Connect />
     </div>
   </div>

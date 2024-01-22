@@ -31,7 +31,7 @@ const profileStore = useProfileStore();
     <div class="row p-4">
       <div class="col-6">
         <h5>Email:</h5>
-        <span>{{ profileStore.profile.email }}</span>
+        <span class="text-break">{{ profileStore.profile.email }}</span>
       </div>
       <div class="col-6">
         <h5>Tel. Number:</h5>
