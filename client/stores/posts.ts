@@ -29,7 +29,7 @@ export const usePostsStore = defineStore("posts", () => {
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
-        posts.value.push(response.value.post);
+        posts.value.unshift(response.value.post);
         toastStore.displayToast(response.value.message, true);
       }
     } catch (error) {
@@ -71,7 +71,8 @@ export const usePostsStore = defineStore("posts", () => {
   });
 
   const filteredPosts = computed(() => {
-    return posts.value.filter((post) => post.replytoId === null);
+    const filtered = posts.value.filter((post) => post.replytoId === null);
+    return filtered.reverse();
   });
 
   const commentPosts = computed(() => {
