@@ -8,8 +8,8 @@
           <img
             src="/logo.png"
             alt="logo"
-            width="50"
-            height="50"
+            width="30"
+            height="30"
             class="rounded-circle"
           />
         </NuxtLink>

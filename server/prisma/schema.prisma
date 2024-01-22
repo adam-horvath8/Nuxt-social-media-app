@@ -46,7 +46,7 @@ model Profile {
   address     String?
   description String?
   profileImg  String? // URL to the profile image
-  email       String? @unique
+  email       String? 
   telNumber   String?
   user        User    @relation(fields: [userId], references: [id])
 }

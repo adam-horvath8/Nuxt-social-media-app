@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import type { usersType } from '~/types';
+import type { usersType } from "~/types";
 
 interface PropsI {
-  users: usersType
+  users: usersType;
 }
 
-const {users} = defineProps<PropsI>();
+const { users } = defineProps<PropsI>();
 
 console.log(users);
-
 </script>
 
 <template>
@@ -20,23 +19,25 @@ console.log(users);
       class="row user-link p-2 rounded-3 text-decoration-none"
     >
       <div class="col-3 p-0">
-        <UiProfileImg :user="user" :big="false"/>
+        <UiProfileImg :user="user" :big="false" />
       </div>
       <div class="col-9">
-        <UiUserName :user="user"/>
+        <UiUserName :user="user" />
       </div>
     </NuxtLink>
   </div>
 </template>
 
 <style lang="css" scoped>
-
-
 .users-list {
-  height: 50vh;
+  height: 30vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-
+@media (min-width: 992px) {
+  .users-list {
+    height: 50vh;
+  }
+}
 </style>

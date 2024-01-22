@@ -22,12 +22,6 @@ const authStore = useAuthStore();
         ><i class="bi bi-stack me-3"></i> Following</NuxtLink
       >
       <NuxtLink
-        to="/bookmarks"
-        type="button"
-        class="btn btn-light btn-lg text-start ps-4"
-        ><i class="bi bi-bookmarks-fill me-3"></i> Bookmarks</NuxtLink
-      >
-      <NuxtLink
         :to="`/profile/${authStore.currentUser?.id}`"
         type="button"
         class="btn btn-light btn-lg text-start ps-4"
