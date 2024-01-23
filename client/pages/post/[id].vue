@@ -26,7 +26,7 @@ console.log(post);
       <div class="card-body pt-1 w-100">
         <NuxtLink
           :to="`/profile/${post.userId}`"
-          class="row user-link rounded-3 p-2"
+          class="row user-link rounded-3 p-2 text-decoration-none"
         >
           <div class="col-2 p-0">
             <UiProfileImg :user="post.user" :big="false" />

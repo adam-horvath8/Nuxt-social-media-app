@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-
   css: [
     "bootstrap/dist/css/bootstrap.css",
     "bootstrap/dist/css/bootstrap.min.css",
@@ -13,7 +12,8 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Social site",
+      title: "Whisper Web",
+      link: [{ rel: "icon", type: "image/x-icon", href: "/logo.png" }],
       script: [
         {
           src: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
@@ -30,6 +30,4 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@bootstrap-vue-next/nuxt",
   ],
-
-
 });

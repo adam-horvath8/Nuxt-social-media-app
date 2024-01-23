@@ -11,6 +11,8 @@ const router = useRouter();
 
 const errorMessage = ref<errorMessageType>();
 
+const toastStore = useToastStore()
+
 const validationSchema = toTypedSchema(
   zod.object({
     username: zod
@@ -47,6 +49,7 @@ const handleSubmit = async (values: Record<string, any>) => {
     }
 
     if (response.value) {
+      toastStore.displayToast("Successful Registration", true)
       router.push("/");
     }
 
