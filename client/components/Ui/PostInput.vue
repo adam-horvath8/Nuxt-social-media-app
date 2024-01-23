@@ -46,11 +46,10 @@ const handleSubmit = async (values: Record<string, any>) => {
     textInput.value = "";
 
     if (fileInput.value) {
-      fileInput.value.value = ""; 
+      fileInput.value.value = "";
     }
 
     emit("close:modal");
-    
   } else {
     toastStore.displayToast("Post input is empty", false);
   }
@@ -86,7 +85,7 @@ const handleFileChange = () => {
         ref="fileInput"
         @change="handleFileChange"
       />
-      <div>
+      <div class="d-flex align-items-center">
         <button
           type="button"
           @click="triggerFileInput"
@@ -94,7 +93,8 @@ const handleFileChange = () => {
         >
           <i class="bi bi-image"></i>
         </button>
-        <span v-if="fileName">{{ fileName }}</span>
+
+        <span v-if="fileName" class="file-name">{{ fileName }}</span>
       </div>
 
       <button class="btn btn-primary flex-2 rounded-pill px-5">Post</button>
@@ -102,4 +102,12 @@ const handleFileChange = () => {
   </Form>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.file-name {
+  max-width: 80px; /* Adjust this value as needed */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block; /* This ensures the element respects the max-width */
+}
+</style>

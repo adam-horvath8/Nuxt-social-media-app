@@ -2,16 +2,16 @@
 import type { userType } from "~/types";
 
 interface PropsI {
-  user: userType;
-  big: boolean
+  user?: userType;
+  big: boolean;
 }
-defineProps<PropsI>();
+const { user } = defineProps<PropsI>();
 </script>
 
 <template>
   <div class="d-flex justify-content-center">
     <img
-      v-if="user.profile?.profileImg"
+      v-if="user?.profile?.profileImg"
       :src="user.profile.profileImg"
       alt="profile image"
       :class="big ? 'rounded-circle pp-big' : 'rounded-circle pp'"

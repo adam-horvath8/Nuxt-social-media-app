@@ -21,7 +21,7 @@ onMounted(fetchAndSetUser);
 <template>
   <div class="rounded-3 bg-white p-3">
     <div class="d-flex gap-4">
-      <UiProfileImg v-if="user" :user="user" :big="true" />
+      <UiProfileImg :user="user" :big="true" />
       <div class="flex-column d-flex">
         <span>{{ user?.profile?.name }} {{ user?.profile?.surname }}</span>
         <NuxtLink :to="`/profile/${authStore.currentUser?.id}`" class="text-decoration-none">{{
