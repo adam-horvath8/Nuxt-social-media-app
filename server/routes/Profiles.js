@@ -4,6 +4,7 @@ const fileUpload = require("express-fileupload");
 const cloudinary = require("../cloud");
 const { PrismaClient } = require("@prisma/client");
 const { validateToken } = require("../JWT");
+const sharp = require("sharp");
 
 const prisma = new PrismaClient();
 
@@ -24,11 +25,12 @@ router.put("/:userId", async (req, res) => {
     if (req.files) {
       const image = req.files.image; // 'image' is the name of the input field
 
+      const resizedImagePath = "./temp/resized-image.jpg";
+      await sharp(image.tempFilePath).resize(400).toFile(resizedImagePath);
+
       // Upload the image to Cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(
-        image.tempFilePath
-      );
-      profileImageSrc = uploadResponse.url;
+      const uploadResponse = await cloudinary.uploader.upload(resizedImagePath);
+      imageSrc = uploadResponse.url;
     }
 
     const updatedProfile = await prisma.profile.update({

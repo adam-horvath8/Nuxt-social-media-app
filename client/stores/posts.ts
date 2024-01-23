@@ -27,7 +27,7 @@ export const usePostsStore = defineStore("posts", () => {
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
       } else if (response.value) {
-        posts.value.unshift(response.value.post);
+        posts.value.push(response.value.post);
         toastStore.displayToast(response.value.message, true);
       }
     } catch (error) {

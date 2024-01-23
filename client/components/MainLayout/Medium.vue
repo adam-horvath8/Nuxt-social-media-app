@@ -2,8 +2,8 @@
 
 <template>
   <div class="d-none d-md-block d-lg-none">
-    <div class="navbar-style position-fixed left-10 top-20"><Navsection /></div>
-    <div class="navbar-style position-fixed left-10 top-50">
+    <div class="navbar-style position-fixed left-10 top-16"><Navsection /></div>
+    <div class="navbar-style connect position-fixed left-10">
       <Connect />
     </div>
   </div>
@@ -12,5 +12,9 @@
 <style lang="css" scoped>
 .navbar-style {
     width: 36%
+}
+
+.connect{
+top: 28rem;
 }
 </style>

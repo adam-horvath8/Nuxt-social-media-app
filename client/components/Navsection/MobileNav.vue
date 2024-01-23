@@ -2,6 +2,10 @@
 const authStore = useAuthStore();
 
 const modal = ref(false);
+
+const handleCloseModal = () => {
+  modal.value = false
+}
 </script>
 
 <template>
@@ -21,8 +25,8 @@ const modal = ref(false);
       <BButton @click="modal = !modal" class="btn btn-light btn-lg ps-4">
         <i class="bi bi-person-fill-add"></i>
       </BButton>
-      <BModal v-model="modal" hide-footer centered>
-        <Connect />
+      <BModal v-model="modal" hide-footer centered >
+        <Connect @close:modal="handleCloseModal"/>
       </BModal>
 
       <NuxtLink

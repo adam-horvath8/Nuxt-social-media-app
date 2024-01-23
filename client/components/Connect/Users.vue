@@ -7,6 +7,8 @@ interface PropsI {
 
 const { users } = defineProps<PropsI>();
 
+
+
 console.log(users);
 </script>
 
@@ -16,6 +18,7 @@ console.log(users);
       :to="`/profile/${user.id}`"
       v-for="user in users"
       :key="user.id"
+      
       class="row user-link p-2 rounded-3 text-decoration-none"
     >
       <div class="col-3 p-0">
@@ -30,14 +33,14 @@ console.log(users);
 
 <style lang="css" scoped>
 .users-list {
-  height: 30vh;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 @media (min-width: 992px) {
   .users-list {
-    height: 50vh;
+    max-height: auto;
   }
 }
 </style>

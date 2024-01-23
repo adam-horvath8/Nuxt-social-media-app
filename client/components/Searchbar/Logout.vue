@@ -15,9 +15,10 @@ const handleLogout = async () => {
   <div class="d-flex justify-content-end w-100">
     <button
       @click="handleLogout"
-      class="btn btn-outline-secondary btn-sm rounded-pill"
+      class="btn btn-outline-secondary btn-sm rounded-pill d-flex gap-1"
     >
-      Logout
+      <i class="bi bi-door-closed-fill"></i>
+      Log out
     </button>
   </div>
 </template>
