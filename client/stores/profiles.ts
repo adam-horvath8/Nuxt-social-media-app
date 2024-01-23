@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { profileType } from "~/types";
+import { url } from "~/utils/url";
 
 interface ProfileResponse {
   updatedProfile: profileType;
@@ -27,7 +28,7 @@ export const useProfileStore = defineStore("profile", () => {
   const updateProfile = async (userId: string, formData: FormData) => {
     try {
       const { data: response, error } = await useFetch<ProfileResponse>(
-        `http://localhost:3004/profile/${userId}`,
+        `${url}/profile/${userId}`,
         {
           method: "put",
           body: formData,
@@ -48,7 +49,7 @@ export const useProfileStore = defineStore("profile", () => {
   const getProfile = async (userId: string) => {
     try {
       const { data: response, error } = await useFetch<ProfileResponse>(
-        `http://localhost:3004/profile/${userId}`
+        `${url}/profile/${userId}`
       );
       if (error.value) {
         toastStore.displayToast(error.value.data, false);

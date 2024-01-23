@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { currentUserType, errorMessageType } from "~/types";
+import { url } from "~/utils/url";
 
 interface LoginResponse {
   userInfo?: currentUserType;
@@ -15,7 +16,7 @@ export const useAuthStore = defineStore("auth", () => {
   const login = async (username: string, password: string) => {
     try {
       const { data: response, error } = await useFetch<LoginResponse>(
-        "http://localhost:3004/auth/login",
+        `${url}/auth/login`,
         {
           method: "post",
           body: { username, password },
@@ -41,7 +42,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const logout = async () => {
     const { data: response, error } = await useFetch(
-      "http://localhost:3004/auth/logout"
+      `${url}/auth/logout`
     );
     if (error.value) {
       console.error("Logout error:", error.value);

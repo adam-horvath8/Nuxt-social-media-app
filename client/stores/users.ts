@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import type { profileType, usersType } from "~/types";
+import { url } from "~/utils/url";
 
 export const useUsersStore = defineStore("users", () => {
   const users = ref<usersType>([]);
@@ -11,7 +12,7 @@ export const useUsersStore = defineStore("users", () => {
     if (users.value.length > 0) return;
     try {
       const { data: response, error } = await useFetch(
-        "http://localhost:3004/auth/users"
+        `${url}/auth/users`
       );
 
       if (error.value) {

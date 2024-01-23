@@ -33,4 +33,6 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@bootstrap-vue-next/nuxt",
   ],
+
+
 });

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type { postsType } from "~/types";
+import { url } from "~/utils/url";
 
 interface CheckSubscriptionResponse {
   isSubscribed: boolean;
@@ -15,7 +16,7 @@ export const useSubsStore = defineStore("subs", () => {
       }
 
       const { data: response, error } = await useFetch(
-        `http://localhost:3004/subscription?userId=${encodeURIComponent(
+        `${url}/subscription?userId=${encodeURIComponent(
           userId
         )}`
       );
@@ -38,7 +39,7 @@ export const useSubsStore = defineStore("subs", () => {
   ) => {
     try {
       const { data: response, error } = await useFetch(
-        "http://localhost:3004/subscription",
+        `${url}/subscription`,
         {
           method: "post",
           body: {
@@ -65,7 +66,7 @@ export const useSubsStore = defineStore("subs", () => {
   ) => {
     try {
       const { data: response, error } = await useFetch(
-        "http://localhost:3004/subscription",
+        `${url}/subscription`,
         {
           method: "delete",
           body: {
@@ -97,7 +98,7 @@ export const useSubsStore = defineStore("subs", () => {
     try {
       const { data: response, error } =
         await useFetch<CheckSubscriptionResponse>(
-          `http://localhost:3004/subscription/check?subscriberId=${encodeURIComponent(
+          `${url}/subscription/check?subscriberId=${encodeURIComponent(
             subscriberId
           )}&subscribedToId=${encodeURIComponent(subscribedToId)}`
         );

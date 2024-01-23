@@ -87,7 +87,6 @@ const handleFileChange = () => {
           v-model="profileStore.profile.description"
           as="textarea"
           class="form-control"
-          placeholder="d"
           rows="4"
           cols="50"
         />
@@ -101,7 +100,6 @@ const handleFileChange = () => {
           type="text"
           v-model="profileStore.profile.name"
           class="form-control"
-          placeholder="d"
         />
       </div>
 
@@ -113,7 +111,6 @@ const handleFileChange = () => {
           type="text"
           v-model="profileStore.profile.surname"
           class="form-control"
-          placeholder="d"
         />
       </div>
 
@@ -125,7 +122,6 @@ const handleFileChange = () => {
           type="text"
           v-model="profileStore.profile.address"
           class="form-control"
-          placeholder="d"
         />
       </div>
 
@@ -137,7 +133,6 @@ const handleFileChange = () => {
           type="email"
           v-model="profileStore.profile.email"
           class="form-control"
-          placeholder="d"
         />
       </div>
 
@@ -149,7 +144,6 @@ const handleFileChange = () => {
           type="tel"
           v-model="profileStore.profile.telNumber"
           class="form-control"
-          placeholder="d"
         />
       </div>
 

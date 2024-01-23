@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import type { postType, postsType } from "~/types";
+import { url } from "~/utils/url";
 
 interface Ipost {
   message: string;
@@ -18,13 +19,10 @@ export const usePostsStore = defineStore("posts", () => {
 
   const addPost = async (formData: FormData) => {
     try {
-      const { data: response, error } = await useFetch<Ipost>(
-        "http://localhost:3004/posts",
-        {
-          method: "post",
-          body: formData,
-        }
-      );
+      const { data: response, error } = await useFetch<Ipost>(`${url}/posts`, {
+        method: "post",
+        body: formData,
+      });
 
       if (error.value) {
         toastStore.displayToast(error.value.data, false);
@@ -39,9 +37,7 @@ export const usePostsStore = defineStore("posts", () => {
 
   const getPosts = async () => {
     try {
-      const { data: response, error } = await useFetch(
-        "http://localhost:3004/posts"
-      );
+      const { data: response, error } = await useFetch(`${url}/posts`);
 
       if (error.value) {
         errorMessage.value = error.value?.data.error;

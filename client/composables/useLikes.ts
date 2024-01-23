@@ -1,3 +1,4 @@
+import { url } from "~/utils/url";
 
 interface FetchLikeI {
   message: string;
@@ -7,11 +8,10 @@ interface FetchLikeI {
 export const useLikes = () => {
   const isLiked = ref<boolean>();
 
-
   const toggleLike = async (userId: string, postId: string) => {
     try {
       const { data: response, error } = await useFetch<FetchLikeI>(
-        "http://localhost:3004/like",
+        `${url}/like`,
         {
           method: "post",
           body: {
@@ -37,7 +37,7 @@ export const useLikes = () => {
   const checkLiked = async (userId: string, postId: string) => {
     try {
       const { data: response, error } = await useFetch<FetchLikeI>(
-        `http://localhost:3004/like/check?userId=${encodeURIComponent(
+        `${url}/like/check?userId=${encodeURIComponent(
           userId
         )}&postId=${encodeURIComponent(postId)}`
       );

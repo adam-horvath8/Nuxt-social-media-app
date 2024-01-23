@@ -1,3 +1,5 @@
+import { url } from "~/utils/url";
+
 interface FetchI {
   count: number;
 }
@@ -8,7 +10,7 @@ export const useCommentsCount = () => {
   const getCount = async (postId: string) => {
     try {
       const { data: response, error } = await useFetch<FetchI>(
-        `http://localhost:3004/posts/comments/count/${postId}`
+        `${url}/posts/comments/count/${postId}`
       );
       if (error.value) {
         console.log(error.value.data);

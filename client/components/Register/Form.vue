@@ -4,6 +4,8 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import zod from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import type { registerValuesType, errorMessageType } from "~/types";
+import { url } from "~/utils/url";
+
 
 const router = useRouter();
 
@@ -32,16 +34,13 @@ const handleSubmit = async (values: Record<string, any>) => {
       throw new Error("Passwords do not match");
     }
 
-    const { data: response, error } = await useFetch(
-      "http://localhost:3004/auth",
-      {
-        method: "post",
-        body: {
-          username: values.username,
-          password: values.password,
-        },
-      }
-    );
+    const { data: response, error } = await useFetch(`${url}/auth`, {
+      method: "post",
+      body: {
+        username: values.username,
+        password: values.password,
+      },
+    });
 
     if (error.value) {
       errorMessage.value = error.value.data.error;
@@ -59,7 +58,7 @@ const handleSubmit = async (values: Record<string, any>) => {
 </script>
 
 <template>
-  <Form :validation-schema="validationSchema" @submit="handleSubmit" >
+  <Form :validation-schema="validationSchema" @submit="handleSubmit">
     <h1 class="display-1 mb-5">Register</h1>
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
