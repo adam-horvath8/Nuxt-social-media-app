@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 const postsStore = usePostsStore();
 
-onMounted(async () => {
-  await postsStore.getPosts();
+const { getPosts, isLoading } = useGetPosts();
+
+onMounted(() => {
+   getPosts();
 });
 </script>
 
@@ -11,7 +13,8 @@ onMounted(async () => {
     <div class="rounded-0 w-100 mb-1">
       <UiPostInput />
     </div>
-    <Post :posts="postsStore.filteredPosts" />
+    <BSpinner v-if="isLoading" />
+    <Post v-else :posts="postsStore.filteredPosts" />
   </div>
 </template>
 

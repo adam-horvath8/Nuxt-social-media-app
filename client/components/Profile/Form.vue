@@ -54,7 +54,7 @@ const handleFileChange = () => {
     @click="modal = !modal"
     variant="primary"
   >
-    Update Profile</BButton
+    <i class="bi bi-gear-fill"></i> Update Profile</BButton
   >
   <BModal v-model="modal" title="Update Profile" hide-footer>
     <Form @submit="handleSubmit" class="d-flex flex-column gap-3 mx-2">

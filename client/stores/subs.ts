@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import type { postsType } from "~/types";
 import { url } from "~/utils/url";
 
 interface CheckSubscriptionResponse {
@@ -16,9 +15,7 @@ export const useSubsStore = defineStore("subs", () => {
       }
 
       const { data: response, error } = await useFetch(
-        `${url}/subscription?userId=${encodeURIComponent(
-          userId
-        )}`
+        `${url}/subscription?userId=${encodeURIComponent(userId)}`
       );
 
       if (error.value) {
@@ -38,16 +35,13 @@ export const useSubsStore = defineStore("subs", () => {
     subscriberId: string
   ) => {
     try {
-      const { data: response, error } = await useFetch(
-        `${url}/subscription`,
-        {
-          method: "post",
-          body: {
-            subscriberId: subscriberId,
-            subscribedToId: subscribedToId,
-          },
-        }
-      );
+      const { data: response, error } = await useFetch(`${url}/subscription`, {
+        method: "post",
+        body: {
+          subscriberId: subscriberId,
+          subscribedToId: subscribedToId,
+        },
+      });
 
       if (error.value) {
         throw new Error(error.value.data);
@@ -65,16 +59,13 @@ export const useSubsStore = defineStore("subs", () => {
     subscriberId: string
   ) => {
     try {
-      const { data: response, error } = await useFetch(
-        `${url}/subscription`,
-        {
-          method: "delete",
-          body: {
-            subscriberId: subscriberId,
-            subscribedToId: subscribedToId,
-          },
-        }
-      );
+      const { data: response, error } = await useFetch(`${url}/subscription`, {
+        method: "delete",
+        body: {
+          subscriberId: subscriberId,
+          subscribedToId: subscribedToId,
+        },
+      });
 
       if (error.value) {
         throw new Error(error.value.data);

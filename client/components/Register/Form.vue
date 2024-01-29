@@ -6,12 +6,11 @@ import { toTypedSchema } from "@vee-validate/zod";
 import type { registerValuesType, errorMessageType } from "~/types";
 import { url } from "~/utils/url";
 
-
 const router = useRouter();
 
 const errorMessage = ref<errorMessageType>();
 
-const toastStore = useToastStore()
+const toastStore = useToastStore();
 
 const validationSchema = toTypedSchema(
   zod.object({
@@ -49,7 +48,7 @@ const handleSubmit = async (values: Record<string, any>) => {
     }
 
     if (response.value) {
-      toastStore.displayToast("Successful Registration", true)
+      toastStore.displayToast("Successful Registration", true);
       router.push("/");
     }
 
@@ -61,11 +60,15 @@ const handleSubmit = async (values: Record<string, any>) => {
 </script>
 
 <template>
-  <Form :validation-schema="validationSchema" @submit="handleSubmit">
-    <h1 class="display-1 mb-5">Register</h1>
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <div id="usernameHelp" class="form-text">
+  <Form
+    :validation-schema="validationSchema"
+    @submit="handleSubmit"
+    class="text-white d-flex flex-column align-items-center "
+  >
+    <h1 class="display-5">Register</h1>
+    <div class="mb-2 ">
+      <label for="username" class="form-label m-0">Username</label>
+      <div id="usernameHelp" class="form-text text-white m-0">
         Must be 4 to 15 characters long
       </div>
       <Field
@@ -77,36 +80,41 @@ const handleSubmit = async (values: Record<string, any>) => {
       />
       <ErrorMessage name="username" class="text-danger" />
     </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <div id="passwordHelp" class="form-text">
-        Must be 6 to 20 characters long
+    <div>
+      <div class="mb-2">
+        <label for="password" class="form-label m-0">Password</label>
+        <div id="passwordHelp" class="form-text text-white m-0">
+          Must be 6 to 20 characters long
+        </div>
+        <Field
+          name="password"
+          type="password"
+          class="form-control"
+          id="password"
+        />
+        <ErrorMessage name="password" class="text-danger" />
       </div>
-      <Field
-        name="password"
-        type="password"
-        class="form-control"
-        id="password"
-      />
-      <ErrorMessage name="password" class="text-danger" />
+      <div class="mb-2">
+        <label for="exampleInputPassword1" class="form-label m-0"
+          >Confirm Password</label
+        >
+        <div id="passwordHelp" class="form-text text-white m-0">
+          Must be same as Password
+        </div>
+        <Field
+          name="confirmPassword"
+          type="password"
+          class="form-control"
+          id="confirmPassword"
+        />
+        <ErrorMessage name="confirmPassword" class="text-danger" />
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label"
-        >Confirm Password</label
-      >
-      <div id="passwordHelp" class="form-text">Must be same as Password</div>
-      <Field
-        name="confirmPassword"
-        type="password"
-        class="form-control"
-        id="confirmPassword"
-      />
-      <ErrorMessage name="confirmPassword" class="text-danger" />
-    </div>
+
     <div>
       <div class="d-flex gap-2 align-items-center">
         <button type="submit" class="btn btn-primary">Register</button>
-        <NuxtLink to="/">Log in</NuxtLink>
+        <NuxtLink to="/" class="text-white">Log in</NuxtLink>
       </div>
 
       <div v-if="errorMessage" class="form-text text-danger">

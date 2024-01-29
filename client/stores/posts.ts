@@ -1,55 +1,18 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import type { postType, postsType } from "~/types";
-import { url } from "~/utils/url";
-
-interface Ipost {
-  message: string;
-  error: string;
-  post: postType;
-}
 
 export const usePostsStore = defineStore("posts", () => {
   const posts = ref<postsType>([]);
   const currentPostId = ref("");
-  const errorMessage = ref<string | undefined>();
   const userId = ref("");
 
-  const toastStore = useToastStore();
-
-  const addPost = async (formData: FormData) => {
-    try {
-      const { data: response, error } = await useFetch<Ipost>(`${url}/posts`, {
-        method: "post",
-        body: formData,
-      });
-
-      if (error.value) {
-        toastStore.displayToast(error.value.data, false);
-      } else if (response.value) {
-        posts.value.push(response.value.post);
-        toastStore.displayToast(response.value.message, true);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const addPost = (post: postType) => {
+    posts.value.push(post);
   };
 
-  const getPosts = async () => {
-    try {
-      const { data: response, error } = await useFetch(`${url}/posts`);
-
-      if (error.value) {
-        errorMessage.value = error.value?.data.error;
-      } else if (response.value && Array.isArray(response.value)) {
-        posts.value = response.value;
-        console.log(posts.value);
-      } else {
-        posts.value = [];
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const setPosts = (newPosts: postsType) => {
+    posts.value = newPosts;
   };
 
   const setUserId = (id: string) => {
@@ -98,8 +61,7 @@ export const usePostsStore = defineStore("posts", () => {
 
   return {
     posts,
-    errorMessage,
-    getPosts,
+    setPosts,
     addPost,
     setUserId,
     filteredProfilePosts,

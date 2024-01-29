@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
-import type { postType } from "~/types";
 
 interface PropsI {
   isComment?: boolean;
@@ -11,8 +10,9 @@ const fileInput = ref();
 const textInput = ref("");
 const fileName = ref("");
 
+const { fetchPost, isLoading } = useFetchPost();
+
 const authStore = useAuthStore();
-const postsStore = usePostsStore();
 const toastStore = useToastStore();
 
 const { isComment, postId } = defineProps<PropsI>();
@@ -25,21 +25,16 @@ const handleSubmit = async (values: Record<string, any>) => {
     return;
   }
 
-  const formData = new FormData();
+  if (values.post || (fileInput.value && fileInput.value.files[0])) {
+    const formData = createPostFormData(
+      values.post,
+      authStore.currentUser?.id,
+      fileInput.value,
+      isComment,
+      postId
+    );
 
-  formData.append("text", values.post);
-  formData.append("userId", authStore.currentUser?.id);
-
-  if (fileInput.value && fileInput.value.files[0]) {
-    formData.append("image", fileInput.value.files[0]);
-  }
-
-  if (isComment && postId) {
-    formData.append("replyToId", postId);
-  }
-
-  if (values.post || fileInput.value.files[0]) {
-    postsStore.addPost(formData);
+    await fetchPost(formData);
 
     fileName.value = "";
 

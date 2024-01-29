@@ -46,16 +46,14 @@ router.post("/login", async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ error: "User doesn't exists" });
+      return res.json({ error: "User doesn't exists" });
     }
 
     const dbPassword = user.password;
     const match = await bcrypt.compare(password, dbPassword);
 
     if (!match) {
-      return res
-        .status(400)
-        .json({ error: "Wrong username and password combination" });
+      return res.json({ error: "Wrong username and password combination" });
     } else {
       const accessToken = createTokens(user);
 

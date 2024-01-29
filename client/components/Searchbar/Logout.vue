@@ -4,9 +4,15 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const handleLogout = async () => {
-  await authStore.logout();
-  if (!authStore.isAuth) {
-    router.push("/");
+  try {
+    const response = await $fetch<{ message: string }>(`${url}/auth/logout`);
+
+    if (response.message) {
+      authStore.logout();
+      router.push("/");
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 </script>

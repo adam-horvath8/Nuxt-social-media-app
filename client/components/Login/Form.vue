@@ -1,32 +1,32 @@
 import type { NuxtLink } from '#build/components';
 <script lang="ts" setup>
 import { Form, Field } from "vee-validate";
-import type { errorMessageType, loginValuesType } from "../../types";
+import type { loginValuesType } from "../../types";
 
 const authStore = useAuthStore();
 const toastStore = useToastStore();
 
-const router = useRouter();
-
-const errorMessage = ref<errorMessageType>("");
+const { loginUser, errorMessage } = useLoginUser();
 
 const handleSubmit = async (values: Record<string, any>) => {
   const loginValues = values as loginValuesType;
 
-  await authStore.login(loginValues.username, loginValues.password);
+  // await authStore.login(loginValues.username, loginValues.password);
+  await loginUser(loginValues.username, loginValues.password);
 
   if (authStore.isAuth) {
     toastStore.displayToast("Succesfull Login", true);
-    router.push("/home");
-  } else {
-    errorMessage.value = authStore.errorMessage;
+    navigateTo("/home");
   }
 };
 </script>
 
 <template>
-  <Form @submit="handleSubmit">
-    <h1 class="display-1 mb-5">Login</h1>
+  <Form
+    @submit="handleSubmit"
+    class="text-white d-flex align-items-center flex-column"
+  >
+    <h1 class="display-4">Login</h1>
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <Field
@@ -48,7 +48,7 @@ const handleSubmit = async (values: Record<string, any>) => {
     </div>
     <div class="d-flex gap-2 align-items-center">
       <button type="submit" class="btn btn-primary">Log In</button>
-      <NuxtLink to="/register">Register</NuxtLink>
+      <NuxtLink to="/register" class="text-white">Register</NuxtLink>
     </div>
     <div v-if="errorMessage" class="form-text text-danger">
       {{ errorMessage }}
