@@ -10,7 +10,7 @@ const fileInput = ref();
 const textInput = ref("");
 const fileName = ref("");
 
-const { fetchPost, isLoading } = useFetchPost();
+const { fetchPost } = useFetchPost();
 
 const authStore = useAuthStore();
 const toastStore = useToastStore();

@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="navbar bg-body-tertiary position-fixed w-100 z-2 p-0">
+  <div class="navbar bg-body-tertiary position-fixed w-100 z-2 p-0 shadow-low">
     <div class="container-fluid">
       <div class="row w-100 justify-content-between align-items-center">
         <NuxtLink to="/home" class="navbar-brand col-2" href="#">

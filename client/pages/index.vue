@@ -2,10 +2,11 @@
 definePageMeta({
   layout: "auth",
 });
+
 </script>
 
 <template>
-  <Login/>
+  <Login />
 </template>
 
 <style lang="css" scoped></style>

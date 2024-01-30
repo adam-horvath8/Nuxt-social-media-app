@@ -14,7 +14,7 @@
       muted
       loop
       id="myVideo"
-      class="video-container rounded-5 position-absolute d-none d-lg-block"
+      class="video-container rounded-5 position-absolute d-none d-lg-block shadow-high"
     >
       <source src="../assets/video/Whisper Web (1).mp4" type="video/mp4" />
     </video>
@@ -33,7 +33,6 @@
 
 .video-container {
   height: 90vh;
-  box-shadow: var(--shadow-elevation-high);
 }
 .form-container {
   z-index: 100;

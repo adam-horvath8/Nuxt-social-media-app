@@ -19,7 +19,7 @@ onMounted(fetchAndSetUser);
 </script>
 
 <template>
-  <div class="rounded-3 bg-white p-3">
+  <div class="rounded-3 bg-white p-3 shadow-low">
     <div class="d-flex gap-4">
       <UiProfileImg :user="user" :big="true" />
       <div class="flex-column d-flex">

@@ -7,31 +7,29 @@ const modal = ref(false);
 const fileName = ref("");
 const fileInput = ref();
 
+const { updateProfile } = useUpdateProfile();
+
 const toastStore = useToastStore();
 const profileStore = useProfileStore();
-const usersStore = useUsersStore();
 const authStore = useAuthStore();
 
 const handleSubmit = async (values: Record<string, any>) => {
   if (!authStore.currentUser) {
-    toastStore.displayToast("You need to be logged in!", true);
+    toastStore.displayToast("You need to be logged in!", false);
     return;
   }
 
-  const formData = new FormData();
+  const formData = createProfileFormData(
+    values.description,
+    values.name,
+    values.surname,
+    values.address,
+    values.email,
+    values.telNumber,
+    fileInput.value
+  );
 
-  formData.append("description", values.description);
-  formData.append("name", values.name);
-  formData.append("surname", values.surname);
-  formData.append("address", values.address);
-  formData.append("email", values.email);
-  formData.append("telNumber", values.telNumber);
-
-  if (fileInput.value && fileInput.value.files[0]) {
-    formData.append("image", fileInput.value.files[0]);
-  }
-
-  profileStore.updateProfile(authStore.currentUser.id, formData);
+  updateProfile(authStore.currentUser.id, formData);
   fileName.value = "";
   modal.value = false;
 };

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { postsType } from "~/types";
 import { url } from "~/utils/url";
 
 interface CheckSubscriptionResponse {
@@ -8,26 +9,8 @@ interface CheckSubscriptionResponse {
 export const useSubsStore = defineStore("subs", () => {
   const subsPosts = ref();
 
-  const getSubsPosts = async (userId: string) => {
-    try {
-      if (!userId) {
-        throw new Error("User ID is undefined");
-      }
-
-      const { data: response, error } = await useFetch(
-        `${url}/subscription?userId=${encodeURIComponent(userId)}`
-      );
-
-      if (error.value) {
-        throw new Error(error.value.data);
-      }
-      if (response.value) {
-        subsPosts.value = response.value;
-        console.log(subsPosts.value);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const setSubsPosts = (subPosts: postsType) => {
+    subsPosts.value = subPosts;
   };
 
   const addSubscription = async (
@@ -119,7 +102,7 @@ export const useSubsStore = defineStore("subs", () => {
 
   return {
     subsPosts,
-    getSubsPosts,
+    setSubsPosts,
     addSubscription,
     deleteSubscription,
     checkSubscription,

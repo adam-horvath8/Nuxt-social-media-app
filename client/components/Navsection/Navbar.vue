@@ -5,7 +5,7 @@ const authStore = useAuthStore();
 <template>
   <nav>
     <div
-      class="btn-group-vertical w-100"
+      class="btn-group-vertical w-100 shadow-low rounded-md"
       role="group"
       aria-label="Vertical button group"
     >

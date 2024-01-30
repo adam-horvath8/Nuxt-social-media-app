@@ -66,6 +66,18 @@ svg {
   max-width: 100%;
 }
 
+.shadow-low {
+  box-shadow: var(--shadow-elevation-low);
+}
+
+.shadow-medium {
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.shadow-high {
+  box-shadow: var(--shadow-elevation-high);
+}
+
 .layout-padding {
   padding-top: 4rem;
   padding-bottom: 2.5rem;

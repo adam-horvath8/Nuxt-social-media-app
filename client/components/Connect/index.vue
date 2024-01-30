@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="p-md-3 bg-white my-2 rounded-3">
+  <div class="p-md-3 bg-white my-2 rounded-3 shadow-low">
     <h5>Connect</h5>
     <ConnectInput />
     <ConnectUsers :users="usersStore.searchUsers" @click="handleEmit" />

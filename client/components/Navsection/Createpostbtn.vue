@@ -2,8 +2,8 @@
 const modal = ref(false);
 
 const handleCloseModal = () => {
-  modal.value = false
-}
+  modal.value = false;
+};
 </script>
 
 <template>
@@ -11,11 +11,11 @@ const handleCloseModal = () => {
     <BButton
       @click="modal = !modal"
       variant="primary"
-      class="w-100 rounded-pill"
+      class="w-100 rounded-pill shadow-medium"
       >Add Post</BButton
     >
     <BModal v-model="modal" hide-footer>
-      <UiPostInput @close:modal="handleCloseModal"/>
+      <UiPostInput @close:modal="handleCloseModal" />
     </BModal>
   </div>
 </template>

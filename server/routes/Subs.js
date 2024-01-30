@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
         likesCount: post.likes.length,
       }));
 
-    res.json(posts);
+    res.json({ posts: posts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
