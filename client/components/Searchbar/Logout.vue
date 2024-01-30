@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const authStore = useAuthStore();
+const usersStore = useUsersStore();
 
 const router = useRouter();
 
@@ -9,6 +10,7 @@ const handleLogout = async () => {
 
     if (response.message) {
       authStore.logout();
+      usersStore.clearSearchInput();
       router.push("/");
     }
   } catch (error) {

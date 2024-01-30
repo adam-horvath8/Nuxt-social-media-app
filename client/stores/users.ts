@@ -11,9 +11,7 @@ export const useUsersStore = defineStore("users", () => {
   const getUsers = async () => {
     if (users.value.length > 0) return;
     try {
-      const { data: response, error } = await useFetch(
-        `${url}/auth/users`
-      );
+      const { data: response, error } = await useFetch(`${url}/auth/users`);
 
       if (error.value) {
         errorMessage.value = error.value?.data;
@@ -28,7 +26,9 @@ export const useUsersStore = defineStore("users", () => {
   };
 
   const updateUser = (updatedProfile: profileType) => {
-    const userIndex = users.value.findIndex(user => user.id === updatedProfile.userId);
+    const userIndex = users.value.findIndex(
+      (user) => user.id === updatedProfile.userId
+    );
     if (userIndex !== -1) {
       users.value[userIndex].profile = updatedProfile;
     }
@@ -41,6 +41,10 @@ export const useUsersStore = defineStore("users", () => {
 
   const setSearchTerm = (input: string) => {
     searchInput.value = input;
+  };
+
+  const clearSearchInput = () => {
+    searchInput.value = "";
   };
 
   const searchUsers = computed(() => {
@@ -61,6 +65,7 @@ export const useUsersStore = defineStore("users", () => {
     getSpecificUser,
     searchUsers,
     setSearchTerm,
-    updateUser
+    updateUser,
+    clearSearchInput,
   };
 });
