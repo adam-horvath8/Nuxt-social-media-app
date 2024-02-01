@@ -3,14 +3,17 @@ import { useUsersStore } from "~/stores/users";
 import type { userType } from "~/types";
 
 const user = ref<userType>();
+
+const { getUsers } = useGetUsers();
+
 const authStore = useAuthStore();
 
 const usersStore = useUsersStore();
 
-const fetchAndSetUser = async() => {
+const fetchAndSetUser = async () => {
   if (authStore.currentUser) {
-    await usersStore.getUsers();
-    user.value =  usersStore.getSpecificUser(authStore.currentUser.id);
+    await getUsers();
+    user.value = usersStore.getSpecificUser(authStore.currentUser.id);
     console.log(user.value);
   }
 };
@@ -24,9 +27,11 @@ onMounted(fetchAndSetUser);
       <UiProfileImg :user="user" :big="true" />
       <div class="flex-column d-flex">
         <span>{{ user?.profile?.name }} {{ user?.profile?.surname }}</span>
-        <NuxtLink :to="`/profile/${authStore.currentUser?.id}`" class="text-decoration-none">{{
-          `@${authStore.currentUser?.username}`
-        }}</NuxtLink>
+        <NuxtLink
+          :to="`/profile/${authStore.currentUser?.id}`"
+          class="text-decoration-none"
+          >{{ `@${authStore.currentUser?.username}` }}</NuxtLink
+        >
       </div>
     </div>
   </div>

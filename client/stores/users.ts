@@ -8,21 +8,9 @@ export const useUsersStore = defineStore("users", () => {
   const searchInput = ref("");
   const errorMessage = ref<string | undefined>();
 
-  const getUsers = async () => {
+  const setUsers = (allUsers: usersType) => {
     if (users.value.length > 0) return;
-    try {
-      const { data: response, error } = await useFetch(`${url}/auth/users`);
-
-      if (error.value) {
-        errorMessage.value = error.value?.data;
-      } else if (response.value && Array.isArray(response.value)) {
-        users.value = response.value;
-      } else {
-        users.value = []; // Ensure users.value is always an array
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    users.value = allUsers;
   };
 
   const updateUser = (updatedProfile: profileType) => {
@@ -61,7 +49,7 @@ export const useUsersStore = defineStore("users", () => {
   return {
     users,
     errorMessage,
-    getUsers,
+    setUsers,
     getSpecificUser,
     searchUsers,
     setSearchTerm,

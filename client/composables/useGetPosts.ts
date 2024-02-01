@@ -1,3 +1,5 @@
+import type { postsType } from "~/types";
+
 const useGetPosts = () => {
   const isLoading = ref<boolean>(false);
 
@@ -9,13 +11,11 @@ const useGetPosts = () => {
 
       const response = await $fetch(`${url}/posts`);
 
-      console.log(response);
-
       if (response && Array.isArray(response)) {
         postsStore.setPosts(response);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     } finally {
       isLoading.value = false;
     }

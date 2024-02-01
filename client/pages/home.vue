@@ -9,8 +9,4 @@ definePageMeta({
   <Home />
 </template>
 
-<style lang="css" scoped>
-.text-red {
-  color: red;
-}
-</style>
+<style lang="css" scoped></style>

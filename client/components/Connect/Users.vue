@@ -3,22 +3,23 @@ import type { usersType } from "~/types";
 
 interface PropsI {
   users: usersType;
+  isLoading: boolean;
 }
 
-const { users } = defineProps<PropsI>();
-
-
+const { users, isLoading } = defineProps<PropsI>();
 
 console.log(users);
 </script>
 
 <template>
-  <div class="p-3 users-list">
+  <div v-if="isLoading" class="d-flex justify-content-center">
+    <BSpinner />
+  </div>
+  <div v-else class="p-3 users-list">
     <NuxtLink
       :to="`/profile/${user.id}`"
       v-for="user in users"
       :key="user.id"
-      
       class="row user-link p-2 rounded-3 text-decoration-none"
     >
       <div class="col-3 p-0">

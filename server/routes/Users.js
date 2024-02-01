@@ -101,7 +101,7 @@ router.get("/users", async (req, res) => {
       },
     });
     if (allUsers) {
-      res.json(allUsers);
+      res.json({ allUsers: allUsers });
     } else {
       res.status(400).json({ error: "Problem finding data" });
     }

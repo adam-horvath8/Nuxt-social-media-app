@@ -1,21 +1,22 @@
 <script lang="ts" setup>
-const subsStore = useSubsStore();
-
 const switchChecked = ref<boolean | undefined>(false);
 
-const { subscribedToId, subscriberId } = defineProps(["subscribedToId", "subscriberId"]);
+const { subscribedToId, subscriberId } = defineProps([
+  "subscribedToId",
+  "subscriberId",
+]);
 
-watch(switchChecked, async (newValue, oldValue) => {
+watch(switchChecked, (newValue, oldValue) => {
   if (newValue === true && oldValue === false) {
-    await subsStore.addSubscription(subscribedToId, subscriberId);
+    useAddSub(subscribedToId, subscriberId);
   }
   if (newValue === false && oldValue === true) {
-    await subsStore.deleteSubscription(subscribedToId, subscriberId);
+    useDeleteSub(subscribedToId, subscriberId);
   }
 });
 
 onMounted(async () => {
-  switchChecked.value = await subsStore.checkSubscription(subscribedToId, subscriberId);
+  switchChecked.value = await useCheckSub(subscribedToId, subscriberId);
 });
 </script>
 
