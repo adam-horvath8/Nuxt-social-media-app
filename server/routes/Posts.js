@@ -67,6 +67,23 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    await prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+
+    res.json({ message: "Post Deleted Successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const allPosts = await prisma.post.findMany({

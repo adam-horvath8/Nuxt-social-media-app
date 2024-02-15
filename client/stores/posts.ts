@@ -11,6 +11,10 @@ export const usePostsStore = defineStore("posts", () => {
     posts.value.push(post);
   };
 
+  const deletePost = (postId: string) => {
+    posts.value.filter((post) => post.id !== postId);
+  };
+
   const setPosts = (newPosts: postsType) => {
     posts.value = newPosts;
   };
@@ -70,5 +74,6 @@ export const usePostsStore = defineStore("posts", () => {
     commentPosts,
     setCurrentPostId,
     updateLikesCount,
+    deletePost,
   };
 });

@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+interface PropsI {
+  subscribedToId: string
+  subscriberId: string
+}
+
 const switchChecked = ref<boolean | undefined>(false);
 
-const { subscribedToId, subscriberId } = defineProps([
-  "subscribedToId",
-  "subscriberId",
-]);
+const { subscribedToId, subscriberId } = defineProps<PropsI>();
 
 watch(switchChecked, (newValue, oldValue) => {
   if (newValue === true && oldValue === false) {

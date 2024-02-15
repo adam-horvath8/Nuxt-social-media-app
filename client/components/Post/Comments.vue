@@ -3,8 +3,8 @@ const { post } = defineProps(["post"]);
 
 const { getCount, count } = useCommentsCount();
 
-watchEffect(async () => {
-  await getCount(post.id);
+watchEffect(() => {
+  getCount(post.id);
 });
 </script>
 

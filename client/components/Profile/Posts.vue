@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-const { userId } = defineProps(["userId"]);
+interface PropsI {
+  userId: string;
+}
+
+const { userId } = defineProps<PropsI>();
 
 console.log(userId);
 
