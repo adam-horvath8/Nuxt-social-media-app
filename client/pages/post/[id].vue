@@ -5,6 +5,7 @@ definePageMeta({
 });
 
 const postsStore = usePostsStore();
+const authStore = useAuthStore();
 
 const { getPosts, isLoading } = useGetPosts();
 
@@ -23,6 +24,7 @@ onMounted(() => {
 <template>
   <div v-if="post" class="d-flex flex-column">
     <BButton
+      v-if="authStore.currentUser?.id === post.userId"
       @click="deletePost(postId)"
       variant="outline-danger"
       class="m-auto mb-2"
@@ -50,7 +52,7 @@ onMounted(() => {
       </div>
     </NuxtLink>
     <UiPostInput :isComment="true" :postId="post.id" />
-    <BSpinner v-if="isLoading" class="m-auto"/>
+    <BSpinner v-if="isLoading" class="m-auto" />
     <Post v-else :posts="postsStore.commentPosts" />
   </div>
 
