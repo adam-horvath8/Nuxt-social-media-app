@@ -4,6 +4,8 @@ definePageMeta({
   layout: "main",
 });
 
+const modal = ref(false);
+
 const postsStore = usePostsStore();
 const authStore = useAuthStore();
 
@@ -25,12 +27,17 @@ onMounted(() => {
   <div v-if="post" class="d-flex flex-column">
     <BButton
       v-if="authStore.currentUser?.id === post.userId"
-      @click="deletePost(postId)"
+      @click="modal = !modal"
       variant="outline-danger"
       class="m-auto mb-2"
       size="sm"
-      ><i class="bi bi-trash-fill"></i
-    ></BButton>
+      ><i class="bi bi-trash-fill"></i>
+    </BButton>
+    <BModal v-model="modal" title="Confirm deletion of the post" hide-footer>
+      <div class="d-flex justify-content-center">
+        <BButton @click="deletePost(postId)" variant="danger" class="w-100"> Delete </BButton>
+      </div>
+    </BModal>
     <NuxtLink
       :to="`/post/${post.id}`"
       :key="post.id"
