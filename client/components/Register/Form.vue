@@ -9,6 +9,7 @@ import { url } from "~/utils/url";
 const router = useRouter();
 
 const errorMessage = ref<errorMessageType>();
+const isLoading = ref(false);
 
 const toastStore = useToastStore();
 
@@ -35,6 +36,8 @@ const handleSubmit = async (values: Record<string, any>) => {
       throw new Error("Passwords do not match");
     }
 
+    isLoading.value = true;
+
     const { data: response, error } = await useFetch(`${url}/auth`, {
       method: "post",
       body: {
@@ -55,6 +58,8 @@ const handleSubmit = async (values: Record<string, any>) => {
     console.log(response.value);
   } catch (err) {
     console.log(err);
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
@@ -63,10 +68,10 @@ const handleSubmit = async (values: Record<string, any>) => {
   <Form
     :validation-schema="validationSchema"
     @submit="handleSubmit"
-    class="text-white d-flex flex-column align-items-center "
+    class="text-white d-flex flex-column align-items-center"
   >
     <h1 class="display-5">Register</h1>
-    <div class="mb-2 ">
+    <div class="mb-2">
       <label for="username" class="form-label m-0">Username</label>
       <div id="usernameHelp" class="form-text text-white m-0">
         Must be 4 to 15 characters long
@@ -113,7 +118,11 @@ const handleSubmit = async (values: Record<string, any>) => {
 
     <div>
       <div class="d-flex gap-2 align-items-center">
-        <button type="submit" class="btn btn-primary">Register</button>
+        <BButton v-if="isLoading" variant="primary" disabled>
+          <BSpinner small />
+          Loading...
+        </BButton>
+        <BButton v-else variant="primary" type="submit"> Register </BButton>
         <NuxtLink to="/" class="text-white">Log in</NuxtLink>
       </div>
 

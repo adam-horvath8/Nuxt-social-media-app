@@ -30,6 +30,7 @@ const handleSubmit = async (values: Record<string, any>) => {
   );
 
   updateProfile(authStore.currentUser.id, formData);
+  
   fileName.value = "";
   modal.value = false;
 };

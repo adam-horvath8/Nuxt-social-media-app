@@ -15,7 +15,7 @@ export const useProfileStore = defineStore("profile", () => {
     telNumber: "",
   });
 
-  const updateProfile = async (updatedProfile: profileType) => {
+  const updateProfile = (updatedProfile: profileType) => {
     profile.value = updatedProfile;
   };
 

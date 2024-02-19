@@ -6,7 +6,7 @@ import type { loginValuesType } from "../../types";
 const authStore = useAuthStore();
 const toastStore = useToastStore();
 
-const { loginUser, errorMessage } = useLoginUser();
+const { loginUser, errorMessage, isLoading } = useLoginUser();
 
 const handleSubmit = async (values: Record<string, any>) => {
   const loginValues = values as loginValuesType;
@@ -47,7 +47,11 @@ const handleSubmit = async (values: Record<string, any>) => {
       />
     </div>
     <div class="d-flex gap-2 align-items-center">
-      <button type="submit" class="btn btn-primary">Log In</button>
+      <BButton v-if="isLoading" variant="primary" disabled>
+        <BSpinner small />
+        Loading...
+      </BButton>
+      <BButton v-else variant="primary" type="submit"> Log In </BButton>
       <NuxtLink to="/register" class="text-white">Register</NuxtLink>
     </div>
     <div v-if="errorMessage" class="form-text text-danger">
