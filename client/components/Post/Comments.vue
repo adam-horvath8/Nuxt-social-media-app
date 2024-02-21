@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-const { post } = defineProps(["post"]);
+import type { postType } from '~/types';
+
+const { post } = defineProps<{
+  post: postType;
+}>();
 
 const { getCount, count } = useCommentsCount();
 

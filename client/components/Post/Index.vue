@@ -27,6 +27,7 @@ defineProps(["posts"]);
       <PostText :post="post" />
       <div class="d-flex justify-content-between">
         <PostComments :post="post" />
+        <PostDate :post="post" />
         <PostLike :post="post" />
       </div>
     </div>
