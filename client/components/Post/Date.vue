@@ -26,7 +26,7 @@ const result =
 </script>
 
 <template>
-  <div class="d-flex align-items-center small">{{ result }}</div>
+  <div class="d-flex align-items-center small text-muted">{{ result }}</div>
 </template>
 
 <style lang="css" scoped></style>
