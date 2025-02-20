@@ -57,7 +57,7 @@ const handleSubmit = async (values: Record<string, any>) => {
 
     console.log(response.value);
   } catch (err) {
-    console.log(err);
+    console.log(err, 'fsfs');
   } finally {
     isLoading.value = false;
   }

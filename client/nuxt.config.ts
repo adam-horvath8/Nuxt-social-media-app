@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -30,4 +29,6 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@bootstrap-vue-next/nuxt",
   ],
+
+  compatibilityDate: "2025-02-20",
 });

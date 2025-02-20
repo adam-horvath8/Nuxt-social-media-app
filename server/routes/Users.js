@@ -10,6 +10,9 @@ router.post("/", async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    console.log(username, password);
+    
+
     const existingUser = await prisma.user.findUnique({
       where: {
         username: username,
